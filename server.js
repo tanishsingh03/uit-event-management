@@ -7,9 +7,9 @@ const path = require("path");
 const fs = require("fs");
 
 const app = express();
-const PORT = 8778;
-//const mongoURI = "mongodb+srv://tanish:...@cluster0.ykxsa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster00";
-const mongoURI = "mongodb://localhost:27017/hh"; // Local MongoDB URI for testing
+const PORT = process.env.PORT || 8778;
+const mongoURI = "mongodb+srv://tanish:...@cluster0.ykxsa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster00";
+//const mongoURI = "mongodb://localhost:27017/hh"; // Local MongoDB URI for testing
 // Ensure 'uploads' directory exists
 const uploadDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadDir)) {
