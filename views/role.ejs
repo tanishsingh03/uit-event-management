@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your Role - EventX</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .gradient-bg {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-10px);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6B4DE6',
+                        secondary: '#4CAF50'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen gradient-bg">
+    <div class="container mx-auto px-4 py-12 min-h-screen flex flex-col items-center justify-center">
+        <div class="text-center mb-16">
+            <h1 class="font-['Pacifico'] text-4xl md:text-5xl text-white mb-4">EventX</h1>
+            <p class="text-white text-xl">Choose your role to get started</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
+            <div class="card-hover bg-white/95 rounded-lg p-8 flex flex-col items-center text-center">
+                <div class="w-16 h-16 flex items-center justify-center mb-6 bg-primary/10 rounded-full">
+                    <i class="ri-vip-crown-line text-primary text-3xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">Sponsor</h2>
+                <p class="text-gray-600 mb-8">Support amazing events and connect with a vibrant community. Showcase your brand to engaged audiences.</p>
+                <button 
+    onclick="window.location.href='/sponserlogin';" 
+    class="mt-auto bg-primary text-white px-8 py-3 rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap">
+    Join as Sponsor
+</button>
+
+            </div>
+
+            <div class="card-hover bg-white/95 rounded-lg p-8 flex flex-col items-center text-center">
+                <div class="w-16 h-16 flex items-center justify-center mb-6 bg-[#2196F3]/10 rounded-full">
+                    <i class="ri-user-line text-[#2196F3] text-3xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">Student</h2>
+                <p class="text-gray-600 mb-8">Discover exciting events, connect with peers, and enhance your campus experience through engaging activities.</p>
+                <button 
+    onclick="window.location.href='/studentlogin';" 
+    class="mt-auto bg-[#2196F3] text-white px-8 py-3 rounded-button hover:bg-[#2196F3]/90 transition-colors whitespace-nowrap">
+    Join as Student
+</button>
+
+            </div>
+
+            <div class="card-hover bg-white/95 rounded-lg p-8 flex flex-col items-center text-center">
+                <div class="w-16 h-16 flex items-center justify-center mb-6 bg-secondary/10 rounded-full">
+                    <i class="ri-team-line text-secondary text-3xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">Club</h2>
+                <p class="text-gray-600 mb-8">Create and manage events, grow your community, and make a lasting impact on campus life.</p>
+                <button 
+    onclick="window.location.href='/club';" 
+    class="mt-auto bg-secondary text-white px-8 py-3 rounded-button hover:bg-secondary/90 transition-colors whitespace-nowrap">
+    Register as Club
+</button>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="notification" class="fixed top-4 right-4 bg-white p-4 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300 flex items-center">
+        <i class="ri-checkbox-circle-line text-green-500 mr-2 text-xl"></i>
+        <span id="notificationText"></span>
+    </div>
+    <script>
+        function selectRole(role) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
+            notificationText.textContent = `You've selected the ${role} role. Redirecting...`;
+            notification.classList.remove('translate-x-full');
+            
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

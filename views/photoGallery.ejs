@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        .gallery-grid {
+            columns: 3;
+            column-gap: 24px;
+        }
+        @media (max-width: 768px) {
+            .gallery-grid {
+                columns: 2;
+            }
+        }
+        @media (max-width: 640px) {
+            .gallery-grid {
+                columns: 1;
+            }
+        }
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FFFFFF',
+                        secondary: '#121212'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white min-h-screen">
+    <header class="fixed w-full bg-white/95 backdrop-blur-sm z-50">
+        <div class="container mx-auto px-6 py-4">
+            <nav class="flex items-center justify-between">
+                <a href="#" class="text-2xl font-['Pacifico'] text-secondary">Event</a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-secondary hover:text-secondary/80 transition-colors">Gallery</a>
+                    <a href="#" class="text-secondary hover:text-secondary/80 transition-colors">About</a>
+                    <a href="#" class="text-secondary hover:text-secondary/80 transition-colors">Contact</a>
+                </div>
+                <button class="md:hidden w-10 h-10 flex items-center justify-center">
+                    <i class="ri-menu-line text-xl"></i>
+                </button>
+            </nav>
+        </div>
+        <div class="h-px bg-gray-100"></div>
+    </header>
+
+    <section class="relative h-screen">
+        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://public.readdy.ai/ai/img_res/bae4d45eacb60a175c1a9216e36f9402.jpg')"></div>
+        <div class="absolute inset-0 bg-black/30"></div>
+        <div class="relative container mx-auto px-6 h-full flex items-center">
+            <div class="max-w-2xl text-white">
+                <h1 class="text-5xl font-light mb-6">Capturing Moments in Time</h1>
+                <p class="text-xl opacity-90">Professional photography that tells your story through the lens of artistry and emotion.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 container mx-auto px-6">
+        <div class="gallery-grid" id="gallery">
+            <div class="mb-6 group relative cursor-pointer" onclick="openLightbox(this)">
+                <img src="https://images.pexels.com/photos/17415163/pexels-photo-17415163/free-photo-of-people-at-picnic-near-unam-university-in-mexico-city.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" class="w-full transition-transform duration-300 group-hover:scale-[1.02]" loading="lazy">
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+            </div>
+            <div class="mb-6 group relative cursor-pointer" onclick="openLightbox(this)">
+                <img src="https://public.readdy.ai/ai/img_res/27b2d97bf8943be104ad921d141bdb51.jpg" class="w-full transition-transform duration-300 group-hover:scale-[1.02]" loading="lazy">
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+            </div>
+            <div class="mb-6 group relative cursor-pointer" onclick="openLightbox(this)">
+                <img src="https://public.readdy.ai/ai/img_res/8a069537c033db88140fac77034f0666.jpg" class="w-full transition-transform duration-300 group-hover:scale-[1.02]" loading="lazy">
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+            </div>
+            <div class="mb-6 group relative cursor-pointer" onclick="openLightbox(this)">
+                <img src="https://public.readdy.ai/ai/img_res/0c0e34bd144f4d3dabf544f542f4c91b.jpg" class="w-full transition-transform duration-300 group-hover:scale-[1.02]" loading="lazy">
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+            </div>
+            <div class="mb-6 group relative cursor-pointer" onclick="openLightbox(this)">
+                <img src="https://public.readdy.ai/ai/img_res/ec03707a1d4a9d84fb1b042c4d44f9db.jpg" class="w-full transition-transform duration-300 group-hover:scale-[1.02]" loading="lazy">
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+            </div>
+            <div class="mb-6 group relative cursor-pointer" onclick="openLightbox(this)">
+                <img src="https://public.readdy.ai/ai/img_res/d4000d97200d7007f4ffb4d47dd70db6.jpg" class="w-full transition-transform duration-300 group-hover:scale-[1.02]" loading="lazy">
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+            </div>
+        </div>
+    </section>
+
+    <div id="lightbox" class="lightbox">
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white w-10 h-10 flex items-center justify-center">
+            <i class="ri-close-line text-2xl"></i>
+        </button>
+        <button onclick="previousImage()" class="absolute left-6 top-1/2 -translate-y-1/2 text-white w-10 h-10 flex items-center justify-center">
+            <i class="ri-arrow-left-line text-2xl"></i>
+        </button>
+        <button onclick="nextImage()" class="absolute right-6 top-1/2 -translate-y-1/2 text-white w-10 h-10 flex items-center justify-center">
+            <i class="ri-arrow-right-line text-2xl"></i>
+        </button>
+        <div class="w-full h-full flex items-center justify-center">
+            <img id="lightbox-image" src="" class="max-h-[80vh] max-w-[80vw] object-contain">
+        </div>
+    </div>
+
+    <footer class="bg-white py-16">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-12">
+                <div>
+                    <h3 class="text-xl font-light mb-4">Newsletter</h3>
+                    <div class="flex">
+                        <input type="email" placeholder="Your email" class="flex-1 px-4 py-2 border border-gray-200 rounded-l-button focus:outline-none focus:border-secondary">
+                        <button class="px-6 py-2 bg-secondary text-white rounded-r-button whitespace-nowrap hover:bg-secondary/90 transition-colors">Subscribe</button>
+                    </div>
+                </div>
+                <div class="text-center md:text-left">
+                    <h3 class="text-xl font-light mb-4">Follow Us</h3>
+                    <div class="flex justify-center md:justify-start space-x-6">
+                        <a href="#" class="w-10 h-10 flex items-center justify-center text-secondary hover:text-secondary/80 transition-colors">
+                            <i class="ri-instagram-line text-xl"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center text-secondary hover:text-secondary/80 transition-colors">
+                            <i class="ri-twitter-line text-xl"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center text-secondary hover:text-secondary/80 transition-colors">
+                            <i class="ri-facebook-line text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-gray-500">&copy; 2025 Photography Portfolio.</p>
+                    <p class="text-gray-500">All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentImageIndex = 0;
+        const gallery = document.querySelectorAll('#gallery > div');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightbox-image');
+
+        function openLightbox(element) {
+            currentImageIndex = Array.from(gallery).indexOf(element);
+            lightboxImage.src = element.querySelector('img').src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function previousImage() {
+            currentImageIndex = (currentImageIndex - 1 + gallery.length) % gallery.length;
+            lightboxImage.src = gallery[currentImageIndex].querySelector('img').src;
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % gallery.length;
+            lightboxImage.src = gallery[currentImageIndex].querySelector('img').src;
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') previousImage();
+            if (e.key === 'ArrowRight') nextImage();
+        });
+    </script>
+</body>
+</html>

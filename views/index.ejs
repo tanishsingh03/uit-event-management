@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Submission Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: auto;
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        button:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Submit Your Event</h2>
+        <form id="eventForm" enctype="multipart/form-data" action="/submit-event" method="POST">
+            <input type="text" name="eventName" placeholder="Event Name" required>
+            <input type="text" name="eventCategory" placeholder="Event Category" required>
+            <textarea name="eventDescription" placeholder="Event Description" required></textarea>
+            <input type="datetime-local" name="eventDatetime" required>
+            <input type="text" name="eventLocation" placeholder="Event Location" required>
+            <input type="number" name="audienceSize" placeholder="Expected Audience Size" required>
+            <input type="number" name="eventBudget" placeholder="Event Budget" required>
+            <input type="text" name="organizerName" placeholder="Organizer Name" required>
+            <input type="email" name="organizerEmail" placeholder="Organizer Email" required>
+            <input type="text" name="organizationName" placeholder="Organization Name">
+            <select name="sponsorshipType">
+                <option value="Title Sponsor">Title Sponsor</option>
+                <option value="Co-Sponsor">Co-Sponsor</option>
+                <option value="Food Sponsor">Food Sponsor</option>
+                <option value="Media Partner">Media Partner</option>
+            </select>
+            <input type="number" name="sponsorshipAmount" placeholder="Sponsorship Amount Needed">
+            <textarea name="sponsorshipBenefits" placeholder="Sponsorship Benefits"></textarea>
+            <input type="file" name="eventPoster">
+            <input type="url" name="eventWebsite" placeholder="Event Website (optional)">
+            <button type="submit">Submit Event</button>
+        </form>
+    </div>
+</body>
+</html>

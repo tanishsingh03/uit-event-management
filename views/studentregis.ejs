@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Events</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#4F46E5',
+secondary: '#10B981'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.modal {
+opacity: 0;
+visibility: hidden;
+transition: all 0.3s ease;
+}
+.modal.active {
+opacity: 1;
+visibility: visible;
+}
+.event-card {
+transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.event-card:hover {
+transform: translateY(-4px);
+box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+</style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+<nav class="bg-white shadow-sm">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between h-16">
+<div class="flex items-center">
+<span class="text-2xl font-['Pacifico'] text-primary">EventX</span>
+</div>
+<div class="flex items-center space-x-4">
+<button class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">About</button>
+<button class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Contact</button>
+<button class="bg-primary text-white px-4 py-2 !rounded-button text-sm font-medium whitespace-nowrap">Sign In</button>
+</div>
+</div>
+</div>
+</nav>
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="mb-12">
+<h1 class="text-4xl font-bold text-gray-900 mb-4">Upcoming Events</h1>
+<p class="text-lg text-gray-600">Discover and join exciting student events happening around you.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="eventGrid"></div>
+</main>
+<div id="eventModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+<div class="bg-white rounded-lg max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+<div class="relative">
+<img id="modalImage" class="w-full h-64 object-cover rounded-t-lg" src="" alt="Event">
+<button onclick="closeModal('eventModal')" class="absolute top-4 right-4 bg-white rounded-full p-2 shadow-lg">
+<i class="ri-close-line text-gray-600 w-6 h-6 flex items-center justify-center"></i>
+</button>
+</div>
+<div class="p-6">
+<h2 id="modalTitle" class="text-2xl font-bold text-gray-900 mb-4"></h2>
+<div class="flex items-center space-x-4 mb-6">
+<div class="flex items-center">
+<i class="ri-calendar-line text-gray-500 w-5 h-5 flex items-center justify-center"></i>
+<span id="modalDate" class="ml-2 text-gray-600"></span>
+</div>
+<div class="flex items-center">
+<i class="ri-map-pin-line text-gray-500 w-5 h-5 flex items-center justify-center"></i>
+<span id="modalLocation" class="ml-2 text-gray-600"></span>
+</div>
+</div>
+<p id="modalDescription" class="text-gray-600 mb-6"></p>
+<div class="mb-6">
+<h3 class="font-semibold text-gray-900 mb-3">Speakers</h3>
+<div id="modalSpeakers" class="flex flex-wrap gap-4"></div>
+</div>
+<div class="mb-6">
+<h3 class="font-semibold text-gray-900 mb-3">Event Highlights</h3>
+<ul id="modalHighlights" class="list-disc list-inside text-gray-600 space-y-2"></ul>
+</div>
+<button onclick="openModal('registrationModal')" class="w-full bg-primary text-white py-3 !rounded-button font-medium whitespace-nowrap">Register Now</button>
+</div>
+</div>
+</div>
+<div id="registrationModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+<div class="bg-white rounded-lg max-w-md w-full mx-4">
+<div class="p-6">
+<div class="flex justify-between items-center mb-6">
+<h3  class="text-xl font-bold text-gray-900">Pay 2 ETH</h3>
+<button onclick="closeModal('registrationModal')" class="text-gray-400 hover:text-gray-600">
+<i class="ri-close-line w-6 h-6 flex items-center justify-center"></i>
+</button>
+</div>
+<form id="registrationForm" class="space-y-4">
+<button id="sponsorBtn" type="submit" class="w-full bg-primary text-white py-3 !rounded-button font-medium whitespace-nowrap">Pay 2 ETH</button>
+</form>
+</div>
+</div>
+</div>
+<div id="successModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+<div class="bg-white rounded-lg max-w-md w-full mx-4 p-6 text-center">
+<div class="mb-4">
+<i class="ri-checkbox-circle-line text-green-500 text-6xl"></i>
+</div>
+<h3 class="text-xl font-bold text-gray-900 mb-2">Registration Successful!</h3>
+<p class="text-gray-600 mb-6">You have successfully registered for the event. Check your email for confirmation details.</p>
+<button onclick="closeModal('successModal')" class="w-full bg-primary text-white py-3 !rounded-button font-medium whitespace-nowrap">Done</button>
+</div>
+</div>
+<script>
+const events = [
+{
+id: 1,
+title: "Tech Innovation Summit 2025",
+date: "March 15, 2025",
+time: "9:00 AM - 5:00 PM",
+location: "University Conference Center",
+image: "https://public.readdy.ai/ai/img_res/ec23a38f31bff5c138c940d6407ef882.jpg",
+description: "Join us for a day of cutting-edge technology discussions, workshops, and networking opportunities. Learn from industry leaders and showcase your innovative ideas.",
+speakers: [
+{ name: "Dr. Emily Richardson", role: "AI Research Director", image: "https://public.readdy.ai/ai/img_res/e7f8031af4750af35fa147db72259e6c.jpg" },
+{ name: "James Chen", role: "Tech Entrepreneur", image: "https://public.readdy.ai/ai/img_res/f977bed2d164d80ec5ef37c9411d1db3.jpg" }
+],
+highlights: [
+"Keynote speeches from industry leaders",
+"Interactive workshops on emerging technologies",
+"Networking sessions with tech professionals",
+"Student project showcase opportunities"
+]
+},
+{
+id: 2,
+title: "Global Business Forum",
+date: "March 20, 2025",
+time: "10:00 AM - 4:00 PM",
+location: "Business School Auditorium",
+image: "https://public.readdy.ai/ai/img_res/fd22a979408e7b12ed2e230e0e7be8e8.jpg",
+description: "Explore international business opportunities and learn about global market trends. Connect with business leaders and understand cross-cultural business practices.",
+speakers: [
+{ name: "Sarah Thompson", role: "Global Strategy Consultant", image: "https://public.readdy.ai/ai/img_res/6ff7cdcdedb03379a88d19e8ba9726df.jpg" },
+{ name: "Michael Rodriguez", role: "International Trade Expert", image: "https://public.readdy.ai/ai/img_res/688d9c794a9322865402e2c06c6c2e7a.jpg" }
+],
+highlights: [
+"International market analysis",
+"Cross-cultural business communication",
+"Global entrepreneurship opportunities",
+"Networking with industry professionals"
+]
+},
+{
+id: 3,
+title: "Creative Arts Festival",
+date: "March 25, 2025",
+time: "11:00 AM - 8:00 PM",
+location: "Campus Arts Center",
+image: "https://public.readdy.ai/ai/img_res/a7802139792e0bb52ef80d4d9284c0c8.jpg",
+description: "Celebrate creativity and artistic expression through various mediums. Featuring student exhibitions, performances, and interactive art installations.",
+speakers: [
+{ name: "Lisa Martinez", role: "Contemporary Artist", image: "https://public.readdy.ai/ai/img_res/54d200a6f9e6d366a9fa5de3ef5c0c1c.jpg" },
+{ name: "David Kim", role: "Digital Arts Director", image: "https://public.readdy.ai/ai/img_res/00c19cd84340fbbe5dd5bf33e9865207.jpg" }
+],
+highlights: [
+"Student art exhibitions",
+"Live performances",
+"Interactive workshops",
+"Digital arts showcase"
+]
+},
+{
+id: 4,
+title: "Environmental Sustainability Summit",
+date: "March 30, 2025",
+time: "9:30 AM - 4:30 PM",
+location: "Environmental Science Building",
+image: "https://public.readdy.ai/ai/img_res/66ac9f56d3d35a9dc339899fc26ab277.jpg",
+description: "Join environmental experts and activists in discussing sustainable solutions for our future. Learn about innovative green technologies and conservation strategies.",
+speakers: [
+{ name: "Dr. Alexandra Green", role: "Environmental Scientist", image: "https://public.readdy.ai/ai/img_res/747d54f601302e10b60ed18fd22634db.jpg" },
+{ name: "Robert Wilson", role: "Sustainability Expert", image: "https://public.readdy.ai/ai/img_res/17d3c130a581e96d686489d5cbb45211.jpg" }
+],
+highlights: [
+"Climate change panel discussions",
+"Sustainable technology showcase",
+"Campus sustainability initiatives",
+"Green career opportunities"
+]
+},
+{
+id: 5,
+title: "Healthcare Innovation Conference",
+date: "April 5, 2025",
+time: "10:00 AM - 6:00 PM",
+location: "Medical Sciences Complex",
+image: "https://public.readdy.ai/ai/img_res/8e495fcbc4d236146ce0b1df8d0a7e77.jpg",
+description: "Explore the future of healthcare through technological innovation and medical breakthroughs. Connect with healthcare professionals and medical technology experts.",
+speakers: [
+{ name: "Dr. Rachel Bennett", role: "Medical Technology Director", image: "https://public.readdy.ai/ai/img_res/fef7eb029ea4b95d13fa4a37ab64a802.jpg" },
+{ name: "Dr. Marcus Lee", role: "Digital Health Expert", image: "https://public.readdy.ai/ai/img_res/677f9de4f8835811d573c7a71c108149.jpg" }
+],
+highlights: [
+"Medical technology demonstrations",
+"Healthcare startup showcase",
+"Digital health innovations",
+"Career opportunities in healthcare tech"
+]
+},
+{
+id: 6,
+title: "Data Science Symposium",
+date: "April 10, 2025",
+time: "9:00 AM - 5:30 PM",
+location: "Computer Science Building",
+image: "https://public.readdy.ai/ai/img_res/a1d470f603c4bc5812785653eb9415a7.jpg",
+description: "Dive deep into the world of data science, machine learning, and artificial intelligence. Learn from industry experts and explore cutting-edge analytics tools.",
+speakers: [
+{ name: "Dr. Jennifer Kumar", role: "Data Science Lead", image: "https://public.readdy.ai/ai/img_res/c8e23b8dacfcc065b3baf818f10d249a.jpg" },
+{ name: "Thomas Anderson", role: "AI Research Scientist", image: "https://public.readdy.ai/ai/img_res/102e2a6f3800e4d1eea808f7a8eb74c7.jpg" }
+],
+highlights: [
+"Machine learning workshops",
+"Data visualization competitions",
+"AI ethics discussions",
+"Industry networking sessions"
+]
+},
+{
+id: 7,
+title: "Entrepreneurship Workshop Series",
+date: "April 15, 2025",
+time: "10:00 AM - 4:00 PM",
+location: "Innovation Hub",
+image: "https://public.readdy.ai/ai/img_res/d766f1204aaf080ce1619e3665dfef95.jpg",
+description: "Learn essential startup skills and business development strategies from successful entrepreneurs. Get hands-on experience in building and pitching business ideas.",
+speakers: [
+{ name: "Victoria Chang", role: "Startup Founder", image: "https://public.readdy.ai/ai/img_res/408d875033fa0e0a857e5103dde4fea0.jpg" },
+{ name: "Daniel Foster", role: "Venture Capitalist", image: "https://public.readdy.ai/ai/img_res/e670c389a46c735fd3f9c58126a52c66.jpg" }
+],
+highlights: [
+"Startup pitch sessions",
+"Business plan workshops",
+"Funding strategy sessions",
+"Mentorship opportunities"
+]
+},
+{
+id: 8,
+title: "Digital Marketing Masterclass",
+date: "April 20, 2025",
+time: "9:30 AM - 3:30 PM",
+location: "Media Studies Center",
+image: "https://public.readdy.ai/ai/img_res/99ff8529cb36f2a09605efe4886f69df.jpg",
+description: "Master the latest digital marketing strategies and tools. Learn about social media marketing, content creation, and digital advertising from industry experts.",
+speakers: [
+{ name: "Sophie Martinez", role: "Digital Marketing Director", image: "https://public.readdy.ai/ai/img_res/e7cdd1fdbc22b3d14e56922f9206c0cf.jpg" },
+{ name: "Ryan O'Connor", role: "Social Media Strategist", image: "https://public.readdy.ai/ai/img_res/ca5d5b773fa207e4c4fcd7c7ba7734e6.jpg" }
+],
+highlights: [
+"Social media strategy workshops",
+"Content marketing sessions",
+"Analytics and ROI tracking",
+"Personal branding workshops"
+]
+},
+{
+id: 9,
+title: "Psychology Research Symposium",
+date: "April 25, 2025",
+time: "10:00 AM - 5:00 PM",
+location: "Psychology Department",
+image: "https://public.readdy.ai/ai/img_res/5c2b43b4744a3ca00578ffd325492ecf.jpg",
+description: "Explore the latest developments in psychological research and clinical practice. Join discussions on mental health, cognitive science, and behavioral studies.",
+speakers: [
+{ name: "Dr. Isabella Romano", role: "Clinical Psychologist", image: "https://public.readdy.ai/ai/img_res/01953c26035d755393a4047917e57d3b.jpg" },
+{ name: "Dr. William Taylor", role: "Research Psychologist", image: "https://public.readdy.ai/ai/img_res/82bf28136907bf3aa94d8c237ea6ccbf.jpg" }
+],
+highlights: [
+"Research presentations",
+"Clinical practice workshops",
+"Mental health discussions",
+"Career guidance sessions"
+]
+}
+];
+function renderEvents() {
+const grid = document.getElementById('eventGrid');
+grid.innerHTML = events.map(event => `
+<div class="event-card bg-white rounded-lg shadow-md overflow-hidden" onclick="showEventDetails(${event.id})">
+<img src="${event.image}" alt="${event.title}" class="w-full h-48 object-cover">
+<div class="p-4">
+<h3 class="text-xl font-semibold text-gray-900 mb-2">${event.title}</h3>
+<div class="flex items-center text-gray-600 mb-2">
+<i class="ri-calendar-line w-5 h-5 flex items-center justify-center"></i>
+<span class="ml-2 text-sm">${event.date}</span>
+</div>
+<p class="text-gray-600 text-sm line-clamp-2">${event.description}</p>
+</div>
+</div>
+`).join('');
+}
+function showEventDetails(eventId) {
+const event = events.find(e => e.id === eventId);
+document.getElementById('modalImage').src = event.image;
+document.getElementById('modalTitle').textContent = event.title;
+document.getElementById('modalDate').textContent = `${event.date} | ${event.time}`;
+document.getElementById('modalLocation').textContent = event.location;
+document.getElementById('modalDescription').textContent = event.description;
+const speakersContainer = document.getElementById('modalSpeakers');
+speakersContainer.innerHTML = event.speakers.map(speaker => `
+<div class="flex items-center space-x-3">
+<img src="${speaker.image}" alt="${speaker.name}" class="w-10 h-10 rounded-full">
+<div>
+<div class="font-medium text-gray-900">${speaker.name}</div>
+<div class="text-sm text-gray-500">${speaker.role}</div>
+</div>
+</div>
+`).join('');
+const highlightsContainer = document.getElementById('modalHighlights');
+highlightsContainer.innerHTML = event.highlights.map(highlight => `
+<li>${highlight}</li>
+`).join('');
+openModal('eventModal');
+}
+function openModal(modalId) {
+document.getElementById(modalId).classList.add('active');
+document.body.style.overflow = 'hidden';
+}
+function closeModal(modalId) {
+document.getElementById(modalId).classList.remove('active');
+document.body.style.overflow = '';
+}
+document.getElementById('registrationForm').addEventListener('submit', function(e) {
+e.preventDefault();
+closeModal('registrationModal');
+
+});
+window.onclick = function(event) {
+const modals = document.getElementsByClassName('modal');
+for (let modal of modals) {
+if (event.target === modal) {
+modal.classList.remove('active');
+document.body.style.overflow = '';
+}
+}
+}
+renderEvents();
+document.getElementById('sponsorBtn').addEventListener('click', async function() {
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    await ethereum.request({ method: 'eth_requestAccounts' });
+                    const accounts = await ethereum.request({ method: 'eth_accounts' });
+                    const sender = accounts[0];
+                    const amountInEther = '2';
+                    const recipient = '0x42566D7ecD136A850F8d32fc80322868e13016fA'; -// Replace with actual recipient
+                    
+                    await ethereum.request({
+                        method: 'eth_sendTransaction',
+                        params: [{
+                            from: sender,
+                            to: recipient,
+                            value: (parseFloat(amountInEther) * 1e18).toString(16),
+                            gas: '21000'
+                        }]
+                    });
+                    
+                    openModal('successModal');
+                } catch (error) {
+                    console.error(error);
+                    alert('Transaction failed.');
+                }
+            } else {
+                alert('MetaMask is not installed. Please install it to proceed.');
+            }
+        });
+</script>
+
+</body>
+</html>

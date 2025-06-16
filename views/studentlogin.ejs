@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CampusEventX - Login</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#8B5CF6',
+secondary: '#F59E0B'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.glass-effect {
+background: rgba(255, 255, 255, 0.8);
+backdrop-filter: blur(10px);
+box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+.animate-float {
+animation: float 6s ease-in-out infinite;
+}
+@keyframes float {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-10px); }
+}
+</style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-purple-100 via-indigo-50 to-blue-100 flex items-center justify-center p-4">
+<div class="w-full max-w-5xl min-h-[600px] flex rounded-2xl overflow-hidden shadow-2xl">
+<div class="hidden lg:flex lg:w-5/12 relative bg-cover bg-center" style="background-image: url('https://public.readdy.ai/ai/img_res/ea998bdcbff9b31bc7b87f9a90034940.jpg')">
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+<div class="absolute bottom-10 left-10 text-white">
+<h2 class="text-4xl font-bold mb-4">Welcome to EventX</h2>
+<p class="text-lg opacity-90">Your Campus Life, Your Events</p>
+</div>
+</div>
+<div class="w-full lg:w-7/12 glass-effect p-8 lg:p-12">
+<div class="text-center mb-8">
+<h1 class="font-['Pacifico'] text-4xl text-primary mb-4">EventX</h1>
+<p class="text-gray-600">Connect, Celebrate & Create Campus Memories</p>
+</div>
+<div class="mb-8">
+<div class="flex justify-center space-x-4 mb-8">
+<button id="loginTab" class="px-6 py-2 rounded-full bg-primary text-white font-medium transition-all">Login</button>
+<button id="signupTab" class="px-6 py-2 rounded-full text-gray-600 font-medium transition-all">Sign Up</button>
+</div>
+<form id="loginForm" class="space-y-6">
+<div class="relative">
+<div class="absolute inset-y-0 left-3 flex items-center">
+<i class="ri-mail-line text-gray-400"></i>
+</div>
+<input type="email" placeholder="Email address" class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+</div>
+<div class="relative">
+<div class="absolute inset-y-0 left-3 flex items-center">
+<i class="ri-lock-line text-gray-400"></i>
+</div>
+<input type="password" placeholder="Password" class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+</div>
+<div class="flex items-center justify-between">
+<label class="flex items-center">
+<input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary">
+<span class="ml-2 text-sm text-gray-600">Remember me</span>
+</label>
+<button type="button" class="text-sm text-primary hover:text-primary/80 transition-colors">Forgot password?</button>
+</div>
+<button type="submit" class="w-full py-3 bg-primary text-white rounded-button font-medium hover:bg-primary/90 transition-all"  onclick="event.preventDefault(); window.location.href='/studentregis';">
+Sign in
+</button>
+</form>
+<form id="signupForm" class="hidden space-y-6">
+<div class="relative">
+<div class="absolute inset-y-0 left-3 flex items-center">
+<i class="ri-user-line text-gray-400"></i>
+</div>
+<input type="text" placeholder="Full name" class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+</div>
+<div class="relative">
+    <div class="absolute inset-y-0 left-3 flex items-center">
+    <i class="ri-user-line text-gray-400"></i>
+    </div>
+    <input type="text" placeholder="Roll number" class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+    </div>
+    <div class="relative">
+        <div class="absolute inset-y-0 left-3 flex items-center">
+        <i class="ri-user-line text-gray-400"></i>
+        </div>
+        <input type="text" placeholder="Year" class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+        </div>
+<div class="relative">
+<div class="absolute inset-y-0 left-3 flex items-center">
+<i class="ri-mail-line text-gray-400"></i>
+</div>
+<input type="email" placeholder="Email address" class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+</div>
+<div class="relative">
+<div class="absolute inset-y-0 left-3 flex items-center">
+<i class="ri-lock-line text-gray-400"></i>
+</div>
+<input type="password" placeholder="Password" class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+</div>
+<div class="relative">
+<div class="absolute inset-y-0 left-3 flex items-center">
+<i class="ri-lock-line text-gray-400"></i>
+</div>
+<input type="password" placeholder="Confirm password" class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+</div>
+<div class="flex items-center">
+<input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary">
+<span class="ml-2 text-sm text-gray-600">I agree to the <a href="#" class="text-primary hover:text-primary/80">Terms of Service</a> and <a href="#" class="text-primary hover:text-primary/80">Privacy Policy</a></span>
+</div>
+<button type="submit" class="w-full py-3 bg-primary text-white rounded-button font-medium hover:bg-primary/90 transition-all">
+Create Account
+</button>
+</form>
+<div class="mt-8">
+<div class="relative">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-gray-200"></div>
+</div>
+<div class="relative flex justify-center">
+<span class="px-4 text-sm text-gray-500 bg-white">Or sign in with</span>
+</div>
+</div>
+<div class="mt-6 grid grid-cols-2 gap-4">
+<button class="flex items-center justify-center px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-all">
+<i class="ri-google-fill text-xl text-[#DB4437] mr-2"></i>
+<span class="text-sm">University Email</span>
+</button>
+<button class="flex items-center justify-center px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-all">
+<i class="ri-microsoft-fill text-xl text-[#00A4EF] mr-2"></i>
+<span class="text-sm">Microsoft</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+const loginTab = document.getElementById('loginTab');
+const signupTab = document.getElementById('signupTab');
+const loginForm = document.getElementById('loginForm');
+const signupForm = document.getElementById('signupForm');
+loginTab.addEventListener('click', () => {
+loginTab.classList.add('bg-primary', 'text-white');
+loginTab.classList.remove('text-gray-600');
+signupTab.classList.remove('bg-primary', 'text-white');
+signupTab.classList.add('text-gray-600');
+loginForm.classList.remove('hidden');
+signupForm.classList.add('hidden');
+});
+signupTab.addEventListener('click', () => {
+signupTab.classList.add('bg-primary', 'text-white');
+signupTab.classList.remove('text-gray-600');
+loginTab.classList.remove('bg-primary', 'text-white');
+loginTab.classList.add('text-gray-600');
+signupForm.classList.remove('hidden');
+loginForm.classList.add('hidden');
+});
+document.querySelectorAll('form').forEach(form => {
+form.addEventListener('submit', (e) => {
+e.preventDefault();
+const formData = new FormData(form);
+const data = Object.fromEntries(formData.entries());
+console.log('Form submitted:', data);
+});
+});
+</script>
+</body>
+</html>

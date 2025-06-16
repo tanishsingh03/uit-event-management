@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Event Sponsorship Platform</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#0066CC',
+secondary: '#4B5563'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.modal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.5);
+z-index: 1000;
+}
+.modal.active {
+display: block;
+}
+</style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+<header class="bg-white border-b">
+<div class="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
+<div class="flex items-center space-x-8">
+<h1 class="text-2xl font-['Pacifico']">logo</h1>
+<nav class="hidden md:flex space-x-6">
+<a href="#" class="text-primary font-medium">Dashboard</a>
+<a href="#" class="text-gray-600 hover:text-primary">Proposals</a>
+<a href="#" class="text-gray-600 hover:text-primary">My Funded Events</a>
+</nav>
+</div>
+<div class="flex items-center space-x-6">
+<div class="relative">
+<input type="text" placeholder="Search events..." class="pl-10 pr-4 py-2 w-64 bg-gray-100 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary/20">
+<div class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center">
+<i class="ri-search-line text-gray-400"></i>
+</div>
+</div>
+<button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+<i class="ri-user-line text-gray-600"></i>
+</button>
+</div>
+</div>
+</header>
+<div class="max-w-7xl mx-auto px-4 py-8">
+<div class="flex flex-wrap items-center gap-4 mb-8">
+<div class="relative">
+<button id="categoryFilter" class="px-4 py-2 bg-white border rounded-button flex items-center space-x-2 text-sm">
+<span>Category</span>
+<i class="ri-arrow-down-s-line"></i>
+</button>
+<div id="categoryDropdown" class="hidden absolute top-full left-0 mt-2 w-48 bg-white rounded shadow-lg border p-2 z-10">
+<a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100 rounded">Sports</a>
+<a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100 rounded">Music</a>
+<a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100 rounded">Technology</a>
+<a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100 rounded">Business</a>
+</div>
+</div>
+<div class="relative">
+<button id="locationFilter" class="px-4 py-2 bg-white border rounded-button flex items-center space-x-2 text-sm">
+<span>Location</span>
+<i class="ri-arrow-down-s-line"></i>
+</button>
+<div id="locationDropdown" class="hidden absolute top-full left-0 mt-2 w-48 bg-white rounded shadow-lg border p-2 z-10">
+<a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100 rounded">New York</a>
+<a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100 rounded">London</a>
+<a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100 rounded">Tokyo</a>
+<a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100 rounded">Singapore</a>
+</div>
+</div>
+<div class="relative">
+<button id="audienceFilter" class="px-4 py-2 bg-white border rounded-button flex items-center space-x-2 text-sm">
+<span>Audience Size</span>
+<i class="ri-arrow-down-s-line"></i>
+</button>
+<div id="audienceDropdown" class="hidden absolute top-full left-0 mt-2 w-48 bg-white rounded shadow-lg border p-2 z-10">
+<a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100 rounded">0-500</a>
+<a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100 rounded">501-2000</a>
+<a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100 rounded">2000+</a>
+</div>
+</div>
+<div class="relative ml-auto">
+<button id="viewToggle" class="px-4 py-2 bg-white border rounded-button flex items-center space-x-2 text-sm">
+<i class="ri-grid-line"></i>
+<span>Grid View</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="eventGrid">
+</div>
+</div>
+<div class="modal" id="proposalModal">
+<div class="fixed inset-0 flex items-center justify-center p-4">
+<div class="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+<div class="p-6">
+<div class="flex justify-between items-start mb-6">
+<h2 class="text-2xl font-semibold" id="modalEventName"></h2>
+<button class="text-gray-400 hover:text-gray-600" onclick="closeModal()">
+<i class="ri-close-line text-2xl"></i>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="md:col-span-2">
+<img id="modalEventImage" class="w-full h-64 object-cover rounded-lg mb-6" src="" alt="Event image">
+<div class="space-y-6">
+<div class="flex items-center space-x-4">
+<div class="flex items-center space-x-2">
+<i class="ri-calendar-line text-gray-400"></i>
+<span id="modalEventDate" class="text-sm"></span>
+</div>
+<div class="flex items-center space-x-2">
+<i class="ri-map-pin-line text-gray-400"></i>
+<span id="modalEventLocation" class="text-sm"></span>
+</div>
+<div class="flex items-center space-x-2">
+<i class="ri-group-line text-gray-400"></i>
+<span id="modalEventAudience" class="text-sm"></span>
+</div>
+</div>
+<div>
+<h3 class="font-semibold mb-2">Event Description</h3>
+<p id="modalEventDescription" class="text-gray-600"></p>
+</div>
+<div>
+<h3 class="font-semibold mb-2">Sponsorship Requirements</h3>
+<p id="modalSponsorshipDetails" class="text-gray-600"></p>
+</div>
+</div>
+</div>
+<div>
+<div class="bg-gray-50 p-6 rounded-lg">
+<div class="text-center mb-6">
+<div class="w-20 h-20 rounded-full bg-gray-200 mx-auto mb-4">
+<img id="modalOrganizerImage" class="w-full h-full rounded-full object-cover" src="" alt="Organizer">
+</div>
+<h3 id="modalOrganizerName" class="font-semibold"></h3>
+<p id="modalOrganizerEmail" class="text-sm text-gray-600"></p>
+</div>
+<div class="space-y-4">
+<button id="sponsorBtn" class="w-full bg-primary text-white py-3 rounded-button font-medium hover:bg-primary/90">Fund Event</button>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+const mockEvents = [
+{
+id: 1,
+name: "TechConnect 2025 Summit",
+category: "Technology",
+date: "March 15, 2025",
+location: "San Francisco, CA",
+audience: "2500+",
+sponsorship: "Premium",
+image: "https://public.readdy.ai/ai/img_res/0eb8e8e2d91e5b8e703b0961284fbfdc.jpg",
+description: "Join us for the largest tech summit in the Bay Area, featuring keynote speakers from leading tech companies, innovative product launches, and networking opportunities with industry leaders.",
+organizer: {
+name: "Michael Anderson",
+email: "m.anderson@techconnect.com",
+image: "https://public.readdy.ai/ai/img_res/c7a4bd95b463f7c6f476d87883fe87f5.jpg"
+},
+sponsorshipDetails: "Looking for premium sponsors to support our main stage events and innovation showcase. Benefits include prominent branding, VIP access, and direct engagement with tech industry leaders."
+},
+{
+id: 2,
+name: "Global Sustainability Forum",
+category: "Business",
+date: "April 5, 2025",
+location: "London, UK",
+audience: "1800",
+sponsorship: "Gold",
+image: "https://public.readdy.ai/ai/img_res/79ff05f5b2d2754578f88fc0fc0ed8f6.jpg",
+description: "A premier gathering of sustainability leaders and innovators discussing climate action, renewable energy, and sustainable business practices.",
+organizer: {
+name: "Emma Thompson",
+email: "e.thompson@sustainforum.org",
+image: "https://public.readdy.ai/ai/img_res/6092908296cbb4151e42a06e8f01e7d3.jpg"
+},
+sponsorshipDetails: "Seeking sustainability-focused sponsors for our keynote sessions and workshop series. Sponsorship includes exhibition space and networking opportunities with industry leaders."
+},
+{
+id: 3,
+name: "World Music Festival 2025",
+category: "Music",
+date: "May 20, 2025",
+location: "Tokyo, Japan",
+audience: "5000+",
+sponsorship: "Platinum",
+image: "https://public.readdy.ai/ai/img_res/e59b7f83f14bcab9ef7b84615a053d19.jpg",
+description: "Experience a fusion of global music traditions with contemporary artists, featuring performances from over 20 countries.",
+organizer: {
+name: "David Chen",
+email: "d.chen@worldmusic.com",
+image: "https://public.readdy.ai/ai/img_res/5011fb294f9ad489ccbaec12320d4ca0.jpg"
+},
+sponsorshipDetails: "Looking for major sponsors to support our main stage events and artist collaborations. Extensive brand exposure and VIP hospitality packages available."
+},
+{
+id: 4,
+name: "International Sports Championship",
+category: "Sports",
+date: "June 10, 2025",
+location: "Melbourne, Australia",
+audience: "15000+",
+sponsorship: "Diamond",
+image: "https://public.readdy.ai/ai/img_res/1fa0eb2bb179fb5d128b6b858d488808.jpg",
+description: "The premier international sports championship bringing together elite athletes from across the globe competing in multiple disciplines.",
+organizer: {
+name: "Sarah Mitchell",
+email: "s.mitchell@sportsint.com",
+image: "https://public.readdy.ai/ai/img_res/c189407b7857fd43afa72adcd7a382a9.jpg"
+},
+sponsorshipDetails: "Seeking major sponsors for championship events, athlete sponsorships, and broadcast coverage. Premium brand placement and global media exposure available."
+},
+{
+id: 5,
+name: "Digital Marketing Summit 2025",
+category: "Business",
+date: "July 25, 2025",
+location: "Singapore",
+audience: "1200",
+sponsorship: "Gold",
+image: "https://public.readdy.ai/ai/img_res/7666cc581e80d7b55759457fa1d6b570.jpg",
+description: "Asia's largest digital marketing conference featuring industry experts, innovative strategies, and networking opportunities with leading brands.",
+organizer: {
+name: "Rachel Wong",
+email: "r.wong@digitalmarketing.asia",
+image: "https://public.readdy.ai/ai/img_res/4e2bb4e489abb5b1abc54ff4c34e9c3f.jpg"
+},
+sponsorshipDetails: "Looking for technology and marketing solution providers to sponsor keynote sessions and workshop tracks. Includes demo opportunities and lead generation."
+},
+{
+id: 6,
+name: "Future of Healthcare Expo",
+category: "Technology",
+date: "August 15, 2025",
+location: "Boston, MA",
+audience: "3000+",
+sponsorship: "Premium",
+image: "https://public.readdy.ai/ai/img_res/2b97b3e25e6a21dd016989ac78e0cbf6.jpg",
+description: "Showcasing breakthrough medical technologies, AI in healthcare, and next-generation patient care solutions.",
+organizer: {
+name: "Dr. James Wilson",
+email: "j.wilson@healthtech.org",
+image: "https://public.readdy.ai/ai/img_res/2a071b07137d90a024c20c47e009b0a7.jpg"
+},
+sponsorshipDetails: "Seeking healthcare technology companies and medical device manufacturers for exhibition spaces and innovation showcases. Direct access to healthcare decision-makers."
+}
+];
+function createEventCard(event) {
+return `
+<div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow" onclick="openModal(${event.id})">
+<img src="${event.image}" alt="${event.name}" class="w-full h-48 object-cover rounded-t-lg">
+<div class="p-6">
+<div class="flex items-center space-x-2 mb-3">
+<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">${event.category}</span>
+<span class="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm">${event.sponsorship}</span>
+</div>
+<h3 class="font-semibold text-lg mb-2">${event.name}</h3>
+<div class="space-y-2 mb-4">
+<div class="flex items-center text-gray-600">
+<i class="ri-calendar-line w-5 h-5 flex items-center justify-center"></i>
+<span class="text-sm ml-2">${event.date}</span>
+</div>
+<div class="flex items-center text-gray-600">
+<i class="ri-map-pin-line w-5 h-5 flex items-center justify-center"></i>
+<span class="text-sm ml-2">${event.location}</span>
+</div>
+<div class="flex items-center text-gray-600">
+<i class="ri-group-line w-5 h-5 flex items-center justify-center"></i>
+<span class="text-sm ml-2">${event.audience} attendees</span>
+</div>
+</div>
+<button class="w-full bg-primary text-white py-2 rounded-button font-medium hover:bg-primary/90">View Proposal</button>
+</div>
+</div>
+`;
+}
+function renderEvents() {
+const eventGrid = document.getElementById('eventGrid');
+eventGrid.innerHTML = mockEvents.map(event => createEventCard(event)).join('');
+}
+function openModal(eventId) {
+const event = mockEvents.find(e => e.id === eventId);
+if (!event) return;
+document.getElementById('modalEventName').textContent = event.name;
+document.getElementById('modalEventImage').src = event.image;
+document.getElementById('modalEventDate').textContent = event.date;
+document.getElementById('modalEventLocation').textContent = event.location;
+document.getElementById('modalEventAudience').textContent = `${event.audience} attendees`;
+document.getElementById('modalEventDescription').textContent = event.description;
+document.getElementById('modalSponsorshipDetails').textContent = event.sponsorshipDetails;
+document.getElementById('modalOrganizerName').textContent = event.organizer.name;
+document.getElementById('modalOrganizerEmail').textContent = event.organizer.email;
+document.getElementById('modalOrganizerImage').src = event.organizer.image;
+document.getElementById('proposalModal').classList.add('active');
+document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+document.getElementById('proposalModal').classList.remove('active');
+document.body.style.overflow = '';
+}
+function toggleDropdown(dropdownId) {
+const dropdown = document.getElementById(dropdownId);
+const allDropdowns = document.querySelectorAll('[id$="Dropdown"]');
+allDropdowns.forEach(d => {
+if (d.id !== dropdownId) {
+d.classList.add('hidden');
+}
+});
+dropdown.classList.toggle('hidden');
+}
+document.getElementById('categoryFilter').addEventListener('click', () => toggleDropdown('categoryDropdown'));
+document.getElementById('locationFilter').addEventListener('click', () => toggleDropdown('locationDropdown'));
+document.getElementById('audienceFilter').addEventListener('click', () => toggleDropdown('audienceDropdown'));
+document.addEventListener('click', (e) => {
+if (!e.target.closest('[id$="Filter"]')) {
+document.querySelectorAll('[id$="Dropdown"]').forEach(d => d.classList.add('hidden'));
+}
+});
+renderEvents();
+document.getElementById('sponsorBtn').addEventListener('click', async function() {
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    await ethereum.request({ method: 'eth_requestAccounts' });
+                    const accounts = await ethereum.request({ method: 'eth_accounts' });
+                    const sender = accounts[0];
+                    const amountInEther = '10';
+                    const recipient = '0x42566D7ecD136A850F8d32fc80322868e13016fA'; -// Replace with actual recipient
+                    
+                    await ethereum.request({
+                        method: 'eth_sendTransaction',
+                        params: [{
+                            from: sender,
+                            to: recipient,
+                            value: (parseFloat(amountInEther) * 1e18).toString(16),
+                            gas: '21000'
+                        }]
+                    });
+                    alert('Successfully Sponsored!.');
+                    openModal('successModal');
+                } catch (error) {
+                    console.error(error);
+                    alert('Transaction failed.');
+                }
+            } else {
+                alert('MetaMask is not installed. Please install it to proceed.');
+            }
+        });
+</script>
+</body>
+</html>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Details Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#4F46E5",
+                        secondary: "#9333EA",
+                    },
+                    borderRadius: {
+                        none: "0px",
+                        sm: "4px",
+                        DEFAULT: "8px",
+                        md: "12px",
+                        lg: "16px",
+                        xl: "20px",
+                        "2xl": "24px",
+                        "3xl": "32px",
+                        full: "9999px",
+                        button: "8px",
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-6">
+    <div class="w-full max-w-2xl bg-white rounded-lg shadow-lg p-8">
+        <div class="flex items-center gap-3 mb-8">
+            <div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full">
+                <i class="ri-calendar-2-line text-primary text-xl"></i>
+            </div>
+            <h1 class="text-2xl font-semibold text-gray-900">Event Details</h1>
+        </div>
+
+        <form id="eventForm" class="space-y-6">
+            <div class="space-y-6">
+                <div class="relative">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Category *</label>
+                    <div class="relative">
+                        <button type="button" id="categoryBtn"
+                            class="w-full px-4 py-2.5 text-left text-sm bg-white border border-gray-300 rounded-button focus:ring-2 focus:ring-primary/20 focus:border-primary !rounded-button flex items-center justify-between">
+                            <span id="selectedCategory">Select category</span>
+                            <i class="ri-arrow-down-s-line"></i>
+                        </button>
+                        <div id="categoryDropdown"
+                            class="hidden absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg">
+                            <div class="p-2">
+                                <input type="text" id="categorySearch"
+                                    class="w-full px-3 py-2 text-sm border-none bg-gray-50 rounded focus:ring-2 focus:ring-primary/20"
+                                    placeholder="Search categories..." />
+                            </div>
+                            <ul class="max-h-60 overflow-auto py-1">
+                                <li class="px-3 py-2 hover:bg-gray-50 cursor-pointer text-sm"
+                                    data-value="conference">
+                                    Conference
+                                </li>
+                                <li class="px-3 py-2 hover:bg-gray-50 cursor-pointer text-sm"
+                                    data-value="workshop">
+                                    Workshop
+                                </li>
+                                <li class="px-3 py-2 hover:bg-gray-50 cursor-pointer text-sm" data-value="seminar">
+                                    Seminar
+                                </li>
+                                <li class="px-3 py-2 hover:bg-gray-50 cursor-pointer text-sm"
+                                    data-value="networking">
+                                    Networking
+                                </li>
+                                <li class="px-3 py-2 hover:bg-gray-50 cursor-pointer text-sm"
+                                    data-value="exhibition">
+                                    Exhibition
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Date *</label>
+                    <div class="relative">
+                        <input type="text" id="datePicker"
+                            class="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-button focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                            placeholder="Select date" readonly />
+                        <i class="ri-calendar-line absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                    <div id="calendar"
+                        class="hidden absolute z-20 mt-1 p-4 bg-white border border-gray-200 rounded-lg shadow-lg">
+                        <div class="calendar-header flex justify-between items-center mb-4">
+                            <button type="button"
+                                class="prev-month p-1 hover:bg-gray-100 rounded !rounded-button">
+                                <i class="ri-arrow-left-s-line"></i>
+                            </button>
+                            <span class="current-month font-medium"></span>
+                            <button type="button"
+                                class="next-month p-1 hover:bg-gray-100 rounded !rounded-button">
+                                <i class="ri-arrow-right-s-line"></i>
+                            </button>
+                        </div>
+                        <div class="calendar-grid grid grid-cols-7 gap-1">
+                            <div class="text-center text-sm font-medium text-gray-500">
+                                Su
+                            </div>
+                            <div class="text-center text-sm font-medium text-gray-500">
+                                Mo
+                            </div>
+                            <div class="text-center text-sm font-medium text-gray-500">
+                                Tu
+                            </div>
+                            <div class="text-center text-sm font-medium text-gray-500">
+                                We
+                            </div>
+                            <div class="text-center text-sm font-medium text-gray-500">
+                                Th
+                            </div>
+                            <div class="text-center text-sm font-medium text-gray-500">
+                                Fr
+                            </div>
+                            <div class="text-center text-sm font-medium text-gray-500">
+                                Sa
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Event Name *</label>
+                    <input type="text" id="eventName"
+                        class="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-button focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                        placeholder="Enter event name" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Description *</label>
+                    <textarea id="eventDescription"
+                        class="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-button focus:ring-2 focus:ring-primary/20 focus:border-primary h-24 resize-none"
+                        placeholder="Enter event description"></textarea>
+                    <p class="mt-1 text-xs text-gray-500 flex justify-end">
+                        <span id="charCount">0</span>/500
+                    </p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Location *</label>
+                    <input type="text" id="eventLocation"
+                        class="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-button focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                        placeholder="Enter event location" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Audience Size *</label>
+                    <div class="relative">
+                        <input type="number" min="0"
+                            class="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-button focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                            placeholder="Enter expected audience size" />
+                        <div class="absolute right-0 top-0 h-full flex">
+                            <button type="button"
+                                class="px-3 border-l border-gray-300 hover:bg-gray-50 flex items-center"
+                                onclick="decrementValue(this)">
+                                <i class="ri-subtract-line"></i>
+                            </button>
+                            <button type="button"
+                                class="px-3 border-l border-gray-300 hover:bg-gray-50 flex items-center"
+                                onclick="incrementValue(this)">
+                                <i class="ri-add-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Organizer Name *</label>
+                    <input type="text"
+                        class="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-button focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                        placeholder="Enter organizer name" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                        Organizer Email *</label>
+                    <input type="email"
+                        class="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-button focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                        placeholder="Enter organizer email" />
+                    <p class="hidden mt-1 text-xs text-red-500">
+                        Please enter a valid email address
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-4 pt-4">
+                <button type="button"
+                    class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-button hover:bg-gray-50 !rounded-button whitespace-nowrap">
+                    Clear Form
+                </button>
+                <button type="submit"
+                    class="px-4 py-2 text-sm font-medium text-white bg-primary rounded-button hover:bg-primary/90 !rounded-button whitespace-nowrap">
+                    Submit Event
+                </button>
+            </div>
+        </form>
+        <p id="response"></p>
+    </div>
+
+    <div id="toast"
+        class="fixed top-4 right-4 hidden bg-white border border-gray-200 rounded-lg shadow-lg p-4 max-w-xs">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 flex items-center justify-center rounded-full bg-green-100">
+                <i class="ri-check-line text-green-500"></i>
+            </div>
+            <p class="text-sm text-gray-600">
+                Event details have been successfully submitted!
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const categoryBtn = document.getElementById("categoryBtn");
+            const categoryDropdown = document.getElementById("categoryDropdown");
+            const form = document.getElementById("eventForm");
+
+            function toggleDropdown(dropdown) {
+                const isHidden = dropdown.classList.contains("hidden");
+                hideAllDropdowns();
+                if (isHidden) {
+                    dropdown.classList.remove("hidden");
+                }
+            }
+
+            function hideAllDropdowns() {
+                document.querySelectorAll('[id$="Dropdown"]').forEach((el) => {
+                    el.classList.add("hidden");
+                });
+            }
+
+            categoryBtn.addEventListener("click", () => toggleDropdown(categoryDropdown));
+            document.addEventListener("click", (e) => {
+                if (
+                    !e.target.closest("#categoryBtn") &&
+                    !e.target.closest("#categoryDropdown")
+                ) {
+                    hideAllDropdowns();
+                }
+            });
+
+            const categorySearch = document.getElementById("categorySearch");
+            categorySearch.addEventListener("input", (e) => {
+                const value = e.target.value.toLowerCase();
+                const items = categoryDropdown.querySelectorAll("li");
+                items.forEach((item) => {
+                    const text = item.textContent.toLowerCase();
+                    item.style.display = text.includes(value) ? "block" : "none";
+                });
+            });
+
+            categoryDropdown.querySelectorAll("li").forEach((item) => {
+                item.addEventListener("click", () => {
+                    document.getElementById("selectedCategory").textContent =
+                        item.textContent;
+                    categoryDropdown.classList.add("hidden");
+                });
+            });
+
+            const textarea = document.querySelector("textarea");
+            const charCount = document.getElementById("charCount");
+            textarea.addEventListener("input", () => {
+                const count = textarea.value.length;
+                charCount.textContent = count;
+                if (count > 500) {
+                    textarea.value = textarea.value.slice(0, 500);
+                }
+            });
+
+            // date
+            const datePicker = document.getElementById('datePicker');
+            const calendar = document.getElementById('calendar');
+            const currentMonthSpan = calendar.querySelector('.current-month');
+            const calendarGrid = calendar.querySelector('.calendar-grid');
+            const prevMonthButton = calendar.querySelector('.prev-month');
+            const nextMonthButton = calendar.querySelector('.next-month');
+
+            let currentDate = new Date();
+            let selectedDate = null;
+
+            function updateCalendar() {
+                const year = currentDate.getFullYear();
+                const month = currentDate.getMonth();
+                const firstDayOfMonth = new Date(year, month, 1);
+                const lastDayOfMonth = new Date(year, month + 1, 0);
+                const daysInMonth = lastDayOfMonth.getDate();
+                const startDay = firstDayOfMonth.getDay();
+
+                currentMonthSpan.textContent = new Date(year, month).toLocaleDateString('en-US', {
+                    month: 'long',
+                    year: 'numeric'
+                });
+
+                calendarGrid.innerHTML = `
+                    <div class="text-center text-sm font-medium text-gray-500">Su</div>
+                    <div class="text-center text-sm font-medium text-gray-500">Mo</div>
+                    <div class="text-center text-sm font-medium text-gray-500">Tu</div>
+                    <div class="text-center text-sm font-medium text-gray-500">We</div>
+                    <div class="text-center text-sm font-medium text-gray-500">Th</div>
+                    <div class="text-center text-sm font-medium text-gray-500">Fr</div>
+                    <div class="text-center text-sm font-medium text-gray-500">Sa</div>
+                `;
+
+                for (let i = 0; i < startDay; i++) {
+                    const emptyDiv = document.createElement('div');
+                    calendarGrid.appendChild(emptyDiv);
+                }
+
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const dayButton = document.createElement('button');
+                    dayButton.classList.add('day', 'text-center', 'py-2', 'rounded-button', 'hover:bg-gray-100', 'cursor-pointer');
+                    dayButton.textContent = i;
+                    dayButton.addEventListener('click', () => {
+                        selectedDate = new Date(year, month, i);
+                        datePicker.value = selectedDate.toLocaleDateString('en-US', {
+                            month: 'long',
+                            day: 'numeric',
+                            year: 'numeric'
+                        });
+                        calendar.classList.add('hidden');
+                    });
+                    calendarGrid.appendChild(dayButton);
+                }
+            }
+
+            // Modify datePicker event listener
+            datePicker.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent the default action
+                calendar.classList.toggle('hidden');
+                updateCalendar();
+            });
+
+            prevMonthButton.addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                updateCalendar();
+            });
+
+            nextMonthButton.addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                updateCalendar();
+            });
+
+            // Prevent form submission on button click
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the form from submitting
+                // You can add your form submission logic here, if needed
+                // For now, it just prevents the refresh
+                var eventName = document.getElementById("eventName").value;
+                var eventDate = document.getElementById("datePicker").value;
+                var eventLocation = document.getElementById("eventLocation").value;
+                var eventDescription = document.getElementById("eventDescription").value;
+
+                var url = "https://script.google.com/macros/s/AKfycbxULwC_Ku7sXG6zomBf4scjSFEVPTWADKc87ldMBT4zQTbRblJimCmQukzBBCcoorrIwQ/exec" +
+                    "?eventName=" + encodeURIComponent(eventName) +
+                    "&eventDate=" + encodeURIComponent(eventDate) +
+                    "&eventLocation=" + encodeURIComponent(eventLocation) +
+                    "&eventDescription=" + encodeURIComponent(eventDescription);
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById("response").innerText = "Response: " + JSON.stringify(data);
+                    })
+                    .catch(error => {
+                        document.getElementById("response").innerText = "Error: " + error;
+                    });
+            });
+        });
+
+        function decrementValue(btn) {
+            const input = btn.parentNode.querySelector('input[type=number]');
+            const min = parseInt(input.min);
+            let value = parseInt(input.value);
+            if (isNaN(value)) value = 0;
+            if (value > min) {
+                value = value - 1;
+            }
+            input.value = value;
+        }
+
+        function incrementValue(btn) {
+            const input = btn.parentNode.querySelector('input[type=number]');
+            let value = parseInt(input.value);
+            if (isNaN(value)) value = 0;
+            value = value + 1;
+            input.value = value;
+        }
+    </script>
+</body>
+
+</html>

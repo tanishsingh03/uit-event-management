@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventX Student Portal</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.nft-card:hover { transform: scale(1.02); transition: all 0.2s ease; }
+.notification-dropdown { display: none; }
+.notification-bell:hover .notification-dropdown { display: block; }
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#6C63FF',
+secondary: '#00BCD4'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+<header class="fixed top-0 w-full bg-white shadow-sm z-50">
+<div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+<div class="flex items-center space-x-4">
+<span class="text-2xl font-['Pacifico'] text-primary">EventX</span>
+</div>
+<div class="flex items-center space-x-6">
+<div class="relative notification-bell">
+<button class="w-10 h-10 flex items-center justify-center relative">
+<i class="ri-notification-3-line text-gray-600 text-xl"></i>
+<span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+</button>
+<div class="notification-dropdown absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg p-4">
+<div class="text-sm font-medium mb-2">Notifications</div>
+<div class="space-y-3">
+<div class="flex items-start space-x-3 p-2 hover:bg-gray-50 rounded">
+<div class="w-8 h-8 flex items-center justify-center bg-primary/10 rounded-full">
+<i class="ri-ticket-2-line text-primary"></i>
+</div>
+<div>
+<p class="text-sm text-gray-800">Your NFT ticket for "Tech Innovation Summit" is ready</p>
+<p class="text-xs text-gray-500 mt-1">2 minutes ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<div class="text-right">
+<div class="text-sm font-medium text-gray-900">Emma Thompson</div>
+<div class="text-xs text-gray-500">Student ID: ST2025089</div>
+</div>
+<img src="https://public.readdy.ai/ai/img_res/0a5dbc489aae0b4100fdcbd38d5c9fea.jpg"
+class="w-10 h-10 rounded-full object-cover">
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-4 pt-24 pb-12">
+<section class="mb-12">
+<h2 class="text-2xl font-semibold mb-6">My NFT Tickets</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="nft-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://public.readdy.ai/ai/img_res/63c2f49c4f0f29944115f1ced4952226.jpg"
+class="w-full h-48 object-cover">
+<span class="absolute top-3 right-3 px-3 py-1 bg-green-500 text-white text-sm rounded-full">Active</span>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-lg mb-2">Tech Innovation Summit 2025</h3>
+<div class="flex items-center text-sm text-gray-500 mb-3">
+<i class="ri-calendar-line mr-2"></i>
+<span>March 15, 2025</span>
+</div>
+<button onclick="showTicketDetails(this)" data-ticket-id="1" class="w-full bg-primary text-white py-2 !rounded-button hover:bg-primary/90 transition-colors">
+View Ticket
+</button>
+<div id="ticketModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-semibold" id="modalTitle"></h3>
+            <button onclick="closeTicketModal()" class="text-gray-500 hover:text-gray-700">
+                <i class="ri-close-line text-xl"></i>
+            </button>
+        </div>
+        <div class="space-y-4">
+            <div class="flex items-center text-gray-600">
+                <i class="ri-calendar-line mr-2"></i>
+                <span id="modalDate"></span>
+            </div>
+            <div class="flex items-center text-gray-600">
+                <i class="ri-map-pin-line mr-2"></i>
+                <span id="modalLocation"></span>
+            </div>
+            <div class="flex items-center text-gray-600">
+                <i class="ri-money-dollar-circle-line mr-2"></i>
+                <span id="modalPrice"></span>
+            </div>
+            <p class="text-gray-600" id="modalDescription"></p>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<div class="nft-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://public.readdy.ai/ai/img_res/c71e4f8c3ee5ca41b095e32caa9c0583.jpg"
+class="w-full h-48 object-cover">
+<span class="absolute top-3 right-3 px-3 py-1 bg-green-500 text-white text-sm rounded-full">Active</span>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-lg mb-2">Technovate 2.0</h3>
+<div class="flex items-center text-sm text-gray-500 mb-3">
+<i class="ri-calendar-line mr-2"></i>
+<span>April 5, 2025</span>
+</div>
+<button onclick="showTicketDetails(this)" data-ticket-id="1" class="w-full bg-primary text-white py-2 !rounded-button hover:bg-primary/90 transition-colors">
+View Ticket
+</button>
+<div id="ticketModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-semibold" id="modalTitle"></h3>
+            <button onclick="closeTicketModal()" class="text-gray-500 hover:text-gray-700">
+                <i class="ri-close-line text-xl"></i>
+            </button>
+        </div>
+        <div class="space-y-4">
+            <div class="flex items-center text-gray-600">
+                <i class="ri-calendar-line mr-2"></i>
+                <span id="modalDate"></span>
+            </div>
+            <div class="flex items-center text-gray-600">
+                <i class="ri-map-pin-line mr-2"></i>
+                <span id="modalLocation"></span>
+            </div>
+            <div class="flex items-center text-gray-600">
+                <i class="ri-money-dollar-circle-line mr-2"></i>
+                <span id="modalPrice"></span>
+            </div>
+            <p class="text-gray-600" id="modalDescription"></p>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="mb-12">
+<h2 class="text-2xl font-semibold mb-6">Past Events</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+<div class="relative">
+<img src="https://public.readdy.ai/ai/img_res/80065dda529636e36d0180815490321b.jpg"
+class="w-full h-48 object-cover">
+<span class="absolute top-3 right-3 px-3 py-1 bg-gray-100 text-gray-800 text-sm rounded-full">
+<i class="ri-check-line mr-1"></i> Completed
+</span>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-lg mb-2 line-clamp-2">Business Networking Masterclass</h3>
+<div class="flex items-center text-sm text-gray-500 mb-3">
+<i class="ri-calendar-line mr-2"></i>
+<span>February 10, 2025</span>
+</div>
+<p class="text-gray-600 text-sm line-clamp-3">
+An intensive workshop on building professional networks and relationships in the modern business landscape.
+</p>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+<div class="relative">
+<img src="https://public.readdy.ai/ai/img_res/ae00c7c657b2e34b4c2b2236b6bfb5b7.jpg"
+class="w-full h-48 object-cover">
+<span class="absolute top-3 right-3 px-3 py-1 bg-gray-100 text-gray-800 text-sm rounded-full">
+<i class="ri-check-line mr-1"></i> Completed
+</span>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-lg mb-2 line-clamp-2">AI & Machine Learning Workshop</h3>
+<div class="flex items-center text-sm text-gray-500 mb-3">
+<i class="ri-calendar-line mr-2"></i>
+<span>January 25, 2025</span>
+</div>
+<p class="text-gray-600 text-sm line-clamp-3">
+Deep dive into practical applications of AI and machine learning in today's business environment.
+</p>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+<div class="relative">
+<img src="https://public.readdy.ai/ai/img_res/7b881232451b1c0a1ed43b3e4b1ef705.jpg"
+class="w-full h-48 object-cover">
+<span class="absolute top-3 right-3 px-3 py-1 bg-gray-100 text-gray-800 text-sm rounded-full">
+<i class="ri-check-line mr-1"></i> Completed
+</span>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-lg mb-2 line-clamp-2">Digital Marketing Trends 2025</h3>
+<div class="flex items-center text-sm text-gray-500 mb-3">
+<i class="ri-calendar-line mr-2"></i>
+<span>January 15, 2025</span>
+</div>
+<p class="text-gray-600 text-sm line-clamp-3">
+Comprehensive overview of emerging digital marketing strategies and social media trends.
+</p>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+<div class="relative">
+<img src="https://public.readdy.ai/ai/img_res/30c5e37913e88077e43466d4ca9e6b17.jpg"
+class="w-full h-48 object-cover">
+<span class="absolute top-3 right-3 px-3 py-1 bg-gray-100 text-gray-800 text-sm rounded-full">
+<i class="ri-check-line mr-1"></i> Completed
+</span>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-lg mb-2 line-clamp-2">Blockchain & Crypto Summit</h3>
+<div class="flex items-center text-sm text-gray-500 mb-3">
+<i class="ri-calendar-line mr-2"></i>
+<span>December 20, 2024</span>
+</div>
+<p class="text-gray-600 text-sm line-clamp-3">
+Expert insights into blockchain technology and the future of digital currencies.
+</p>
+</div>
+</div>
+</div>
+</section>
+<section>
+<h2 class="text-2xl font-semibold mb-6">Upcoming Events</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://public.readdy.ai/ai/img_res/35cf38b056fa907819afd2c1d8af81c6.jpg"
+class="w-full h-48 object-cover">
+<div class="absolute top-3 left-3 bg-white px-3 py-1 rounded-full text-sm font-medium">
+March 25, 2025
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-semibold text-lg mb-2">Startup Pitch Competition</h3>
+<p class="text-gray-600 text-sm mb-4">
+Join us for an exciting evening of innovative startup pitches and networking opportunities.
+</p>
+<div class="flex items-center justify-between">
+<span class="text-sm text-gray-500">
+<i class="ri-user-line mr-1"></i> 45 spots left
+</span>
+<button class="bg-primary text-white px-4 py-2 !rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap">
+Register Now
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<script>
+const mockData = {
+tickets: [
+    {
+        id: 1,
+        title: "Tech Innovation Summit 2025",
+        date: "March 15, 2025",
+        location: "Silicon Valley Convention Center, CA",
+        price: "$299",
+        description: "Join industry leaders and innovators for a day of cutting-edge technology discussions and networking opportunities. Features keynote speakers from top tech companies and hands-on workshops.",
+        status: "Active"
+    },
+    {
+        id: 2,
+        title: "Technovate 2.0",
+        date: "April 5, 2025",
+        location: "Digital Innovation Hub, New York",
+        price: "$249",
+        description: "Experience the future of technology at Technovate 2.0. Showcasing the latest in AI, VR, and emerging tech trends with interactive demonstrations and expert panels.",
+        status: "Active"
+    }
+],
+notifications: [
+{ title: "Your NFT ticket for 'Tech Innovation Summit' is ready", time: "2 minutes ago" },
+{ title: "Reminder: 'Startup Pitch Competition' starts in 2 days", time: "1 hour ago" },
+{ title: "New event added: 'Digital Marketing Workshop'", time: "3 hours ago" }
+],
+nftTickets: [
+{
+title: "Tech Innovation Summit 2025",
+date: "March 15, 2025",
+status: "Active",
+image: "tech-summit.jpg"
+},
+{
+title: "Technovate 2.0",
+date: "April 5, 2025",
+status: "Active",
+image: "technovate.jpg"
+}
+],
+pastEvents: [
+{
+title: "Business Networking Masterclass",
+date: "February 10, 2025",
+description: "An intensive workshop on building professional networks and relationships in the modern business landscape.",
+status: "Completed",
+image: "networking.jpg"
+},
+{
+title: "AI & Machine Learning Workshop",
+date: "January 25, 2025",
+description: "Deep dive into practical applications of AI and machine learning in today's business environment.",
+status: "Completed",
+image: "ai-workshop.jpg"
+},
+{
+title: "Digital Marketing Trends 2025",
+date: "January 15, 2025",
+description: "Comprehensive overview of emerging digital marketing strategies and social media trends.",
+status: "Completed",
+image: "digital-marketing.jpg"
+},
+{
+title: "Blockchain & Crypto Summit",
+date: "December 20, 2024",
+description: "Expert insights into blockchain technology and the future of digital currencies.",
+status: "Completed",
+image: "blockchain-summit.jpg"
+}
+],
+upcomingEvents: [
+{
+title: "Startup Pitch Competition",
+date: "March 25, 2025",
+description: "Join us for an exciting evening of innovative startup pitches and networking opportunities.",
+spotsLeft: 45,
+image: "pitch-competition.jpg"
+}
+]
+};
+</script>
++pt>
+function showTicketDetails(button) {
+    const ticketId = button.getAttribute('data-ticket-id');
+    const ticket = mockData.tickets.find(t => t.id === parseInt(ticketId));
+    
+    if (ticket) {
+        document.getElementById('modalTitle').textContent = ticket.title;
+        document.getElementById('modalDate').textContent = ticket.date;
+        document.getElementById('modalLocation').textContent = ticket.location;
+        document.getElementById('modalPrice').textContent = ticket.price;
+        document.getElementById('modalDescription').textContent = ticket.description;
+        
+        document.getElementById('ticketModal').classList.remove('hidden');
+    }
+}
+function closeTicketModal() {
+    document.getElementById('ticketModal').classList.add('hidden');
+}
+// Close modal when clicking outside
+document.getElementById('ticketModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeTicketModal();
+    }
+});
+</script>
+</body>
+</html>

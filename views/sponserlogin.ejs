@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventX - Connect Your Brand with Extraordinary Experiences</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        .gradient-bg {
+            background: linear-gradient(135deg, #2A0944 0%, #000000 100%);
+        }
+        .floating-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            animation: float 8s infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+        .form-input {
+            transition: all 0.3s ease;
+            border: 1px solid #E5E7EB;
+        }
+        .form-input:focus {
+            border-color: #2A0944;
+            box-shadow: 0 0 0 2px rgba(42, 9, 68, 0.1);
+        }
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #2A0944;
+            background-color: #2A0944;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #2A0944;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2A0944',
+                        secondary: '#FFD700'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen">
+    <div class="flex min-h-screen">
+        <div class="hidden lg:flex lg:w-1/2 relative gradient-bg">
+            <div class="floating-particles">
+                <div class="particle"></div>
+            </div>
+            <div class="relative z-10 flex flex-col items-center justify-center w-full p-12 text-white">
+                <h1 class="font-['Pacifico'] text-5xl mb-8">EventX</h1>
+                <p class="text-2xl font-semibold text-center mb-12">Connect Your Brand with Extraordinary Experiences</p>
+                <div class="space-y-6 text-center">
+                    <div class="p-6 bg-white/10 rounded-lg backdrop-blur-sm">
+                        <p class="text-4xl font-bold mb-2">10K+</p>
+                        <p class="text-sm opacity-80">Successful Partnerships</p>
+                    </div>
+                    <div class="p-6 bg-white/10 rounded-lg backdrop-blur-sm">
+                        <p class="text-4xl font-bold mb-2">5M+</p>
+                        <p class="text-sm opacity-80">Event Attendees Reached</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="w-full lg:w-1/2 flex items-center justify-center p-8">
+            <div class="w-full max-w-md">
+                <div class="text-center mb-8 lg:hidden">
+                    <h1 class="font-['Pacifico'] text-4xl text-primary mb-4">EventX</h1>
+                </div>
+
+                <div class="bg-white rounded-xl p-8 shadow-lg">
+                    <div class="flex justify-center mb-8">
+                        <div class="flex bg-gray-100 p-1 rounded-full">
+                            <button class="login-tab px-8 py-2 rounded-full bg-primary text-white font-medium">Login</button>
+                            <button class="signup-tab px-8 py-2 rounded-full text-gray-600 font-medium">Sign Up</button>
+                        </div>
+                    </div>
+
+                    <form id="loginForm" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="ri-mail-line text-gray-400"></i>
+                                </div>
+                                <input type="email" class="form-input w-full pl-10 pr-4 py-3 rounded-lg text-sm" placeholder="Enter your email">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="ri-lock-line text-gray-400"></i>
+                                </div>
+                                <input type="password" class="form-input w-full pl-10 pr-4 py-3 rounded-lg text-sm" placeholder="Enter your password">
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <label class="flex items-center">
+                                <div class="relative inline-block w-10 mr-2 align-middle select-none">
+                                    <input type="checkbox" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+                                    <div class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></div>
+                                </div>
+                                <span class="text-sm text-gray-700">Remember me</span>
+                            </label>
+                            <a href="#" class="text-sm text-primary hover:text-primary/80">Forgot Password?</a>
+                        </div>
+                        <button type="submit" onclick="event.preventDefault(); window.location.href='/radhika';">
+                            Sign In
+                        </button>
+
+                        <div class="relative my-6">
+                            <div class="absolute inset-0 flex items-center">
+                                <div class="w-full border-t border-gray-200"></div>
+                            </div>
+                            <div class="relative flex justify-center">
+                                <span class="px-4 text-sm text-gray-500 bg-white">Or continue with</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-4">
+                            <button type="button" class="flex items-center justify-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                                <i class="ri-google-fill text-xl"></i>
+                            </button>
+                            <button type="button" class="flex items-center justify-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                                <i class="ri-apple-fill text-xl"></i>
+                            </button>
+                            <button type="button" class="flex items-center justify-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                                <i class="ri-linkedin-fill text-xl"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                    <form id="signupForm" class="hidden space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="ri-user-line text-gray-400"></i>
+                                </div>
+                                <input type="text" class="form-input w-full pl-10 pr-4 py-3 rounded-lg text-sm" placeholder="Enter your full name">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="ri-mail-line text-gray-400"></i>
+                                </div>
+                                <input type="email" class="form-input w-full pl-10 pr-4 py-3 rounded-lg text-sm" placeholder="Enter your email">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="ri-lock-line text-gray-400"></i>
+                                </div>
+                                <input type="password" class="form-input w-full pl-10 pr-4 py-3 rounded-lg text-sm" placeholder="Create a password">
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="flex items-center h-5">
+                                <input type="checkbox" class="h-4 w-4 text-primary border-gray-300 rounded">
+                            </div>
+                            <div class="ml-3">
+                                <label class="text-sm text-gray-700">
+                                    I agree to the <a href="#" class="text-primary hover:text-primary/80">Terms of Service</a> and <a href="#" class="text-primary hover:text-primary/80">Privacy Policy</a>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full py-3 px-4 !rounded-button bg-primary text-white font-medium hover:bg-primary/90 transition-colors">
+                            Create Account
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginTab = document.querySelector('.login-tab');
+            const signupTab = document.querySelector('.signup-tab');
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+
+            loginTab.addEventListener('click', () => {
+                loginTab.classList.add('bg-primary', 'text-white');
+                loginTab.classList.remove('text-gray-600');
+                signupTab.classList.remove('bg-primary', 'text-white');
+                signupTab.classList.add('text-gray-600');
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+            });
+
+            signupTab.addEventListener('click', () => {
+                signupTab.classList.add('bg-primary', 'text-white');
+                signupTab.classList.remove('text-gray-600');
+                loginTab.classList.remove('bg-primary', 'text-white');
+                loginTab.classList.add('text-gray-600');
+                signupForm.classList.remove('hidden');
+                loginForm.classList.add('hidden');
+            });
+
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 5 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = '100%';
+                document.querySelector('.floating-particles').appendChild(particle);
+                particle.addEventListener('animationend', () => {
+                    particle.remove();
+                });
+            }
+            setInterval(createParticle, 300);
+        });
+    </script>
+</body>
+</html>

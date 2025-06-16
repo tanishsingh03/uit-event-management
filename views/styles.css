@@ -1,0 +1,191 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700&display=swap');
+ 
+
+/* Tailwind Directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Base Styles */
+body {
+ font-family: 'Inter', sans-serif;
+ @apply bg-white text-gray-700;
+}
+
+
+/* Custom Classes */
+.font-pacifico {
+ font-family: 'Pacifico', cursive;
+}
+
+
+/* Reusable Components */
+.btn {
+ @apply px-6 py-3 font-medium rounded-button transition-colors whitespace-nowrap;
+}
+
+
+.btn-primary {
+ @apply bg-primary text-secondary hover:bg-primary/90;
+}
+
+
+.btn-secondary {
+ @apply bg-secondary text-white hover:bg-secondary/90;
+}
+
+
+.btn-secondary-outline {
+ @apply bg-transparent text-secondary border border-secondary hover:bg-secondary/10;
+}
+
+
+.nav-link {
+ position: relative;
+ @apply text-secondary hover:text-primary transition-colors;
+}
+
+
+.nav-link::after {
+ content: '';
+ position: absolute;
+ width: 0;
+ height: 2px;
+ bottom: -2px;
+ left: 0;
+ background-color: #c1ff72;
+ transition: width 0.3s;
+}
+
+
+.nav-link:hover::after {
+ width: 100%;
+}
+
+
+.section-title {
+ @apply text-4xl font-bold text-secondary mb-4;
+}
+
+
+.section-subtitle {
+ @apply text-gray-600 max-w-2xl mx-auto;
+}
+
+
+.event-card {
+ @apply bg-white rounded-lg shadow-sm overflow-hidden transition-all duration-300 hover:transform hover:translate-y-[-4px];
+}
+
+
+.event-date {
+ @apply flex items-center mb-4 text-sm text-gray-500;
+}
+
+
+.event-title {
+ @apply text-xl font-semibold text-secondary mb-2;
+}
+
+
+.event-description {
+ @apply text-gray-600 mb-4;
+}
+
+
+.feature-card {
+ @apply text-center p-6;
+}
+
+
+.feature-icon {
+ @apply w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4;
+}
+
+
+.feature-title {
+ @apply text-xl font-semibold text-secondary mb-2;
+}
+
+
+.feature-description {
+ @apply text-gray-600;
+}
+
+
+.category-card {
+ @apply bg-white p-6 text-center hover:shadow-md transition-shadow;
+}
+
+
+.category-icon {
+ @apply w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3;
+}
+
+
+.category-title {
+ @apply font-semibold text-secondary;
+}
+
+
+.input-field {
+ @apply flex-1 px-4 py-3 rounded-button border border-gray-200 focus:outline-none focus:border-primary;
+}
+
+
+.footer-title {
+ @apply font-semibold mb-4 text-white;
+}
+
+
+.footer-link {
+ @apply text-gray-400 hover:text-white transition-colors block;
+}
+
+
+.footer-social-link {
+ @apply text-gray-400 hover:text-white transition-colors;
+}
+
+
+.hero {
+ @apply py-32 bg-gray-100;
+}
+
+
+.hero-title {
+ @apply text-4xl md:text-5xl font-bold text-secondary mb-6;
+}
+
+
+.hero-subtitle {
+ @apply text-lg text-gray-600 mb-8;
+}
+
+
+.hero-buttons {
+ @apply flex justify-center lg:justify-start gap-4;
+}
+
+
+/* Theme Configuration (Tailwind) */
+@layer base {
+ :root {
+ --primary: #c1ff72;
+ --secondary: #323232;
+ }
+
+
+ body {
+ @apply font-['Inter'];
+ }
+}
+
+
+@layer components {
+ .btn {
+ @apply rounded-button bg-primary px-6 py-2 text-secondary font-medium hover:bg-primary/90 transition-colors whitespace-nowrap;
+ }
+}

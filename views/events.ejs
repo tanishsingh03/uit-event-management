@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Events</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<style>
+    /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Header */
+header {
+    background-color: #088178;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 24px;
+}
+
+/* Events Container */
+.events-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Event Block */
+.event-block {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.event-block img {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.event-block h2 {
+    color: #222;
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.event-block p {
+    font-size: 14px;
+    color: #555;
+    margin: 5px 0;
+}
+
+/* Button */
+.btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #088178;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background-color: #065c57;
+}
+
+/* No Events Message */
+.no-events {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+    margin: 50px;
+}
+
+</style>
+<body>
+    <header>
+        <h1>Upcoming Events</h1>
+    </header>
+
+    <section class="events-container">
+        <% if (events.length > 0) { %>
+            <% events.forEach(event => { %>
+                <div class="event-block">
+                    <img src="<%= event.eventPoster %>" alt="Event Poster">
+                    <h2><%= event.eventName %></h2>
+                    <p><strong>Category:</strong> <%= event.eventCategory %></p>
+                    <p><strong>Date:</strong> <%= new Date(event.eventDatetime).toDateString() %></p>
+                    <p><strong>Location:</strong> <%= event.eventLocation %></p>
+                    <a href="/events/eventDetails/<%= event._id %>" class="btn">View Details</a>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p class="no-events">No upcoming events available.</p>
+        <% } %>
+        <% if (events.length > 0) { %>
+            <% events.forEach(event => { %>
+                <div class="event-block">
+                    <img src="<%= event.eventPoster %>" alt="Event Poster">
+                    <h2><%= event.eventName %></h2>
+                    <p><strong>Category:</strong> <%= event.eventCategory %></p>
+                    <p><strong>Date:</strong> <%= new Date(event.eventDatetime).toDateString() %></p>
+                    <p><strong>Location:</strong> <%= event.eventLocation %></p>
+                    <a href="/events/eventDetails/<%= event._id %>" class="btn">View Details</a>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p class="no-events">No upcoming events available.</p>
+        <% } %>
+        
+    </section>
+    
+</body>
+</html>

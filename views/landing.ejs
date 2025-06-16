@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+ <html lang="en">
+   <head>
+     <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <title>EventX - Stay Connected with College Events</title>
+     <script src="https://cdn.tailwindcss.com"></script>
+     <link rel="preconnect" href="https://fonts.googleapis.com" />
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+     <link
+       href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700&display=swap"
+       rel="stylesheet"
+     />
+     <link
+       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+       rel="stylesheet"
+     />
+     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+     <style>
+       :where([class^="ri-"])::before {
+         content: "\f3c2";
+       }
+ 
+
+       .event-card:hover {
+         transform: translateY(-4px);
+       }
+ 
+
+       .nav-link {
+         position: relative;
+       }
+ 
+
+       .nav-link::after {
+         content: "";
+         position: absolute;
+         width: 0;
+         height: 2px;
+         bottom: -2px;
+         left: 0;
+         background-color: #c1ff72;
+         transition: width 0.3s;
+       }
+ 
+
+       .nav-link:hover::after {
+         width: 100%;
+       }
+     </style>
+     <script>
+       tailwind.config = {
+         theme: {
+           extend: {
+             colors: {
+               primary: "#c1ff72",
+               secondary: "#323232",
+             },
+             borderRadius: {
+               none: "0px",
+               sm: "4px",
+               DEFAULT: "8px",
+               md: "12px",
+               lg: "16px",
+               xl: "20px",
+               "2xl": "24px",
+               "3xl": "32px",
+               full: "9999px",
+               button: "8px",
+             },
+           },
+         },
+       };
+     </script>
+   </head>
+   <body class="bg-white font-['Inter']">
+     <!-- Navigation Bar -->
+     <nav
+       class="fixed w-full bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100"
+     >
+       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+         <div class="flex justify-between h-16 items-center">
+           <div class="flex-shrink-0">
+             <h1 class="text-2xl font-['Pacifico'] text-secondary">EventX</h1>
+           </div>
+           <div class="hidden md:flex space-x-8">
+             <a href="#l"class="nav-link text-secondary hover:text-secondary/80">Home</a>
+             <a
+               href="#i"
+               class="nav-link text-secondary hover:text-secondary/80"
+               >Events</a
+             >
+             <a
+               href="#a"
+               class="nav-link text-secondary hover:text-secondary/80"
+               >About Us</a
+             >
+             <a
+               href="#c"
+               class="nav-link text-secondary hover:text-secondary/80" 
+               >Contact</a
+             >
+           </div>
+           <button 
+    onclick="window.location.href='/role';"
+    class="!rounded-button bg-primary px-6 py-2 text-secondary font-medium hover:bg-primary/90 transition-colors whitespace-nowrap">
+    Register Now
+</button>
+
+        
+         </div>
+       </div>
+     </nav>
+ 
+
+     <main>
+       <!-- Hero Section -->
+       <section class="py-32 bg-gray-100" id="l">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+           <div class="lg:flex items-center gap-12">
+             <div class="lg:w-1/2 text-center lg:text-left">
+               <h1
+                 class="text-4xl md:text-5xl font-bold text-secondary mb-6"
+                 data-aos="fade-right"
+               >
+                 Discover the Best College Events
+               </h1>
+               <p
+                 class="text-lg text-gray-600 mb-8"
+                 data-aos="fade-right"
+                 data-aos-delay="100"
+               >
+                 Your gateway to a vibrant campus life. Find events, connect
+                 with friends, and make memories!
+               </p>
+               <div
+                 class="flex justify-center lg:justify-start gap-4"
+                 data-aos="fade-up"
+                 data-aos-delay="200"
+               >
+                 <button
+                   class="!rounded-button bg-primary text-secondary px-8 py-3 text-lg font-semibold hover:bg-primary/90 transition-colors whitespace-nowrap"
+                 >
+                   Explore Events
+                 </button>
+                 <button
+                   class="!rounded-button bg-white text-secondary px-8 py-3 text-lg font-semibold hover:bg-gray-200 transition-colors whitespace-nowrap"
+                 >
+                   Learn More
+                 </button>
+               </div>
+             </div>
+             <div class="lg:w-1/2" data-aos="fade-left">
+               <img
+                 src="https://public.readdy.ai/ai/img_res/970a9ff3ea343c695abd547d827bd58c.jpg"
+                 alt="College Event"
+                 class="rounded-lg shadow-lg"
+               />
+             </div>
+           </div>
+         </div>
+       </section>
+ 
+
+       <section class="py-20 bg-gray-50">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+           <div class="text-center mb-12" id="i">
+             <h2
+               class="text-4xl font-bold text-secondary mb-4"
+               data-aos="fade-down"
+             >
+               Upcoming Events
+             </h2>
+             <p class="text-gray-600 max-w-2xl mx-auto" data-aos="fade-up">
+               Don't miss out on these exciting upcoming events happening around
+               your campus
+             </p>
+           </div>
+ 
+
+           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+             <div
+               class="bg-white rounded-lg shadow-sm overflow-hidden transition-all duration-300 event-card"
+               data-aos="fade-up"
+               data-aos-delay="100"
+             >
+               <img
+                 src="https://public.readdy.ai/ai/img_res/331f32d414c754027a81a49445db4107.jpg"
+                 alt="Tech Summit"
+                 class="w-full h-48 object-cover"
+               />
+               <div class="p-6">
+                 <div class="flex items-center mb-4 text-sm text-gray-500">
+                   <i class="ri-calendar-line mr-2"></i>
+                   <span>Feb 25, 2025</span>
+                   <i class="ri-time-line ml-4 mr-2"></i>
+                   <span>2:00 PM</span>
+                 </div>
+                 <h3 class="text-xl font-semibold text-secondary mb-2">
+                   Annual Tech Summit 2025
+                 </h3>
+                 <p class="text-gray-600 mb-4">
+                   Join industry leaders and innovators for a day of inspiring
+                   talks and networking opportunities.
+                 </p>
+                 <button
+                   class="!rounded-button bg-primary/10 text-secondary px-4 py-2 font-medium hover:bg-primary/20 transition-colors whitespace-nowrap"
+                 >
+                   Learn More
+                 </button>
+               </div>
+             </div>
+ 
+
+             <div
+               class="bg-white rounded-lg shadow-sm overflow-hidden transition-all duration-300 event-card"
+               data-aos="fade-up"
+               data-aos-delay="200"
+             >
+               <img
+                 src="https://public.readdy.ai/ai/img_res/4c5945f4b83a45c7446a2b0dbe289aef.jpg"
+                 alt="Music Festival"
+                 class="w-full h-48 object-cover"
+               />
+               <div class="p-6">
+                 <div class="flex items-center mb-4 text-sm text-gray-500">
+                   <i class="ri-calendar-line mr-2"></i>
+                   <span>Mar 5, 2025</span>
+                   <i class="ri-time-line ml-4 mr-2"></i>
+                   <span>6:00 PM</span>
+                 </div>
+                 <h3 class="text-xl font-semibold text-secondary mb-2">
+                   Spring Music Festival
+                 </h3>
+                 <p class="text-gray-600 mb-4">
+                   Experience an unforgettable evening of live music featuring
+                   top campus bands and artists.
+                 </p>
+                 <button
+                   class="!rounded-button bg-primary/10 text-secondary px-4 py-2 font-medium hover:bg-primary/20 transition-colors whitespace-nowrap"
+                 >
+                   Learn More
+                 </button>
+               </div>
+             </div>
+ 
+
+             <div
+               class="bg-white rounded-lg shadow-sm overflow-hidden transition-all duration-300 event-card"
+               data-aos="fade-up"
+               data-aos-delay="300"
+             >
+               <img
+                 src="https://public.readdy.ai/ai/img_res/a32651f1c87c9bae768e80ca216abd41.jpg"
+                 alt="Career Fair"
+                 class="w-full h-48 object-cover"
+               />
+               <div class="p-6">
+                 <div class="flex items-center mb-4 text-sm text-gray-500">
+                   <i class="ri-calendar-line mr-2"></i>
+                   <span>Mar 15, 2025</span>
+                   <i class="ri-time-line ml-4 mr-2"></i>
+                   <span>10:00 AM</span>
+                 </div>
+                 <h3 class="text-xl font-semibold text-secondary mb-2">
+                   Spring Career Fair
+                 </h3>
+                 <p class="text-gray-600 mb-4">
+                   Connect with top employers and explore internship and career
+                   opportunities across industries.
+                 </p>
+                 <button
+                   class="!rounded-button bg-primary/10 text-secondary px-4 py-2 font-medium hover:bg-primary/20 transition-colors whitespace-nowrap"
+                 >
+                   Learn More
+                 </button>
+               </div>
+             </div>
+           </div>
+ 
+
+           <div class="text-center mt-12">
+             <button
+               class="!rounded-button bg-secondary text-white px-8 py-3 font-medium hover:bg-secondary/90 transition-colors whitespace-nowrap"
+             >
+               View All Events
+             </button>
+           </div>
+         </div>
+       </section>
+ 
+
+       <section class="py-20">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+           <div class="text-center mb-12">
+             <h2
+               class="text-4xl font-bold text-secondary mb-4" id="a"
+               data-aos="fade-down"
+             >
+               Why Choose EventX?
+             </h2>
+             <p class="text-gray-600 max-w-2xl mx-auto" data-aos="fade-up">
+               We make it easy to discover and participate in the best campus
+               events
+             </p>
+           </div>
+ 
+
+           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+             <div class="text-center p-6" data-aos="fade-up">
+               <div
+                 class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4"
+               >
+                 <i class="ri-calendar-check-line text-2xl text-secondary"></i>
+               </div>
+               <h3 class="text-xl font-semibold text-secondary mb-2">
+                 Easy Event Discovery
+               </h3>
+               <p class="text-gray-600">
+                 Find and track all campus events in one place, organized by
+                 your interests
+               </p>
+             </div>
+             <div class="text-center p-6" data-aos="fade-up" data-aos-delay="100">
+               <div
+                 class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4"
+               >
+                 <i class="ri-group-line text-2xl text-secondary"></i>
+               </div>
+               <h3 class="text-xl font-semibold text-secondary mb-2">
+                 Connect with Peers
+               </h3>
+               <p class="text-gray-600">
+                 Meet like-minded students and build your campus network
+               </p>
+             </div>
+             <div class="text-center p-6" data-aos="fade-up" data-aos-delay="200">
+               <div
+                 class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4"
+               >
+                 <i class="ri-notification-4-line text-2xl text-secondary"></i>
+               </div>
+               <h3 class="text-xl font-semibold text-secondary mb-2">
+                 Never Miss Out
+               </h3>
+               <p class="text-gray-600">
+                 Get personalized notifications for events you're interested in
+               </p>
+             </div>
+           </div>
+         </div>
+       </section>
+ 
+
+       <section class="py-20 bg-gray-50">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+           <div class="text-center mb-12">
+             <h2
+               class="text-4xl font-bold text-secondary mb-4"
+               data-aos="fade-down"
+             >
+               Event Categories
+             </h2>
+             <p class="text-gray-600 max-w-2xl mx-auto" data-aos="fade-up">
+               Browse events by category to find exactly what you're looking for
+             </p>
+           </div>
+ 
+
+           <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+             <button
+               class="!rounded-button bg-white p-6 text-center hover:shadow-md transition-shadow"
+               data-aos="fade-up"
+             >
+               <div
+                 class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3"
+               >
+                 <i class="ri-computer-line text-xl text-secondary"></i>
+               </div>
+               <h3 class="font-semibold text-secondary">Technology</h3>
+             </button>
+             <button
+               class="!rounded-button bg-white p-6 text-center hover:shadow-md transition-shadow"
+               data-aos="fade-up"
+               data-aos-delay="100"
+             >
+               <div
+                 class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3"
+               >
+                 <i class="ri-music-2-line text-xl text-secondary"></i>
+               </div>
+               <h3 class="font-semibold text-secondary">Arts & Music</h3>
+             </button>
+ 
+
+             <button
+               class="!rounded-button bg-white p-6 text-center hover:shadow-md transition-shadow"
+               data-aos="fade-up"
+               data-aos-delay="200"
+             >
+               <div
+                 class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3"
+               >
+                 <i class="ri-briefcase-4-line text-xl text-secondary"></i>
+               </div>
+               <h3 class="font-semibold text-secondary">Career</h3>
+             </button>
+             <button
+               class="!rounded-button bg-white p-6 text-center hover:shadow-md transition-shadow"
+               data-aos="fade-up"
+               data-aos-delay="300"
+             >
+               <div
+                 class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3"
+               >
+                 <i class="ri-basketball-line text-xl text-secondary"></i>
+               </div>
+               <h3 class="font-semibold text-secondary">Sports</h3>
+             </button>
+           </div>
+         </div>
+       </section>
+ 
+
+       <section class="py-20">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+           <div class="text-center mb-12">
+             <h2
+               class="text-4xl font-bold text-secondary mb-4"
+               data-aos="fade-down"
+             >
+               Our Team
+             </h2>
+             <p class="text-gray-600 max-w-2xl mx-auto" data-aos="fade-up">
+               Meet the passionate individuals behind EventX.
+             </p>
+           </div>
+ 
+
+           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+             <!-- Team Member 1 -->
+             <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+               <img
+                 src="https://images.unsplash.com/photo-1531427186534-f734963e8f8e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+                 alt="John Doe"
+                 class="w-32 h-32 rounded-full mx-auto mb-2"
+               />
+               <h4 class="text-xl font-semibold text-secondary mb-1">
+                 John Doe
+               </h4>
+               <p class="text-gray-600">Co-founder & CEO</p>
+             </div>
+ 
+
+             <!-- Team Member 2 -->
+             <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+               <img
+                 src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+                 alt="Jane Smith"
+                 class="w-32 h-32 rounded-full mx-auto mb-2"
+               />
+               <h4 class="text-xl font-semibold text-secondary mb-1">
+                 Jane Smith
+               </h4>
+               <p class="text-gray-600">Co-founder & CTO</p>
+             </div>
+ 
+
+             <!-- Team Member 3 -->
+             <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+               <img
+                 src="https://images.unsplash.com/photo-1580489944761-15a19d674x?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+                 alt="Mike Johnson"
+                 class="w-32 h-32 rounded-full mx-auto mb-2"
+               />
+               <h4 class="text-xl font-semibold text-secondary mb-1">
+                 Mike Johnson
+               </h4>
+               <p class="text-gray-600">Marketing Manager</p>
+             </div>
+           </div>
+         </div>
+       </section>
+ 
+
+       <section class="py-20 bg-gray-50" id="c">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+           <div class="text-center mb-12">
+             <h2
+               class="text-4xl font-bold text-secondary mb-4" 
+               data-aos="fade-down"
+             >
+               Contact Us
+             </h2>
+             <p class="text-gray-600 max-w-2xl mx-auto" data-aos="fade-up">
+               Have questions? Reach out to us and we'll get back to you as soon
+               as possible.
+             </p>
+           </div>
+ 
+
+           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+             <div data-aos="fade-right">
+               <h3 class="text-2xl font-semibold text-secondary mb-4">
+                 Contact Information
+               </h3>
+               <p class="text-gray-600 mb-2">
+                 <strong class="font-semibold text-secondary">Address:</strong>
+                 123 University Ave, Anytown, USA
+               </p>
+               <p class="text-gray-600 mb-2">
+                 <strong class="font-semibold text-secondary">Email:</strong>
+                 info@eventx.com
+               </p>
+               <p class="text-gray-600 mb-2">
+                 <strong class="font-semibold text-secondary">Phone:</strong>
+                 (123) 456-7890
+               </p>
+               <p class="text-gray-600">
+                 <strong class="font-semibold text-secondary">Social Media:</strong>
+                 <a
+                   href="#"
+                   class="text-primary hover:text-primary/80 transition-colors"
+                   >Facebook</a
+                 >,
+                 <a
+                   href="#"
+                   class="text-primary hover:text-primary/80 transition-colors"
+                   >Twitter</a
+                 >,
+                 <a
+                   href="#"
+                   class="text-primary hover:text-primary/80 transition-colors"
+                   >Instagram</a
+                 >
+               </p>
+             </div>
+ 
+
+             <div data-aos="fade-left">
+               <h3 class="text-2xl font-semibold text-secondary mb-4">
+                 Send us a Message
+               </h3>
+               <form>
+                 <div class="mb-4">
+                   <label
+                     for="name"
+                     class="block text-gray-700 text-sm font-bold mb-2"
+                     >Your Name</label
+                   >
+                   <input
+                     type="text"
+                     id="name"
+                     class="shadow appearance-none border rounded !rounded-button w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-gray-200 focus:border-primary"
+                     placeholder="Your Name"
+                   />
+                 </div>
+                 <div class="mb-4">
+                   <label
+                     for="email"
+                     class="block text-gray-700 text-sm font-bold mb-2"
+                     >Your Email</label
+                   >
+                   <input
+                     type="email"
+                     id="email"
+                     class="shadow appearance-none border rounded !rounded-button w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-gray-200 focus:border-primary"
+                     placeholder="Your Email"
+                   />
+                 </div>
+                 <div class="mb-6">
+                   <label
+                     for="message"
+                     class="block text-gray-700 text-sm font-bold mb-2"
+                     >Message</label
+                   >
+                   <textarea
+                     id="message"
+                     rows="4"
+                     class="shadow appearance-none border rounded !rounded-button w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-gray-200 focus:border-primary"
+                     placeholder="Your Message"
+                   ></textarea>
+                 </div>
+                 <div class="flex items-center justify-between">
+                   <button
+                     class="!rounded-button bg-secondary text-white px-6 py-3 font-medium hover:bg-secondary/90 transition-colors whitespace-nowrap focus:outline-none focus:shadow-outline"
+                     type="submit"
+                   >
+                     Send Message
+                   </button>
+                 </div>
+               </form>
+             </div>
+           </div>
+         </div>
+       </section>
+ 
+
+       <section class="py-20">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+           <div class="text-center mb-12">
+             <h2
+               class="text-4xl font-bold text-secondary mb-4"
+               data-aos="fade-down"
+             >
+               Stay Updated
+             </h2>
+             <p class="text-gray-600 max-w-2xl mx-auto" data-aos="fade-up">
+               Subscribe to our newsletter and never miss an important event
+             </p>
+           </div>
+ 
+
+           <div class="max-w-md mx-auto">
+             <form class="flex gap-4">
+               <input
+                 type="email"
+                 placeholder="Enter your email"
+                 class="flex-1 px-4 py-3 !rounded-button border border-gray-200 focus:outline-none focus:border-primary"
+               />
+               <button
+                 type="submit"
+                 class="!rounded-button bg-secondary text-white px-6 py-3 font-medium hover:bg-secondary/90 transition-colors whitespace-nowrap"
+               >
+                 Subscribe
+               </button>
+             </form>
+           </div>
+         </div>
+       </section>
+     </main>
+ 
+
+     <footer class="bg-secondary text-white py-12">
+       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+           <div>
+             <h3 class="text-2xl font-['Pacifico'] mb-4">logo</h3>
+             <p class="text-gray-400">
+               Connecting students through memorable campus events
+             </p>
+           </div>
+ 
+
+           <div>
+             <h4 class="font-semibold mb-4">Quick Links</h4>
+             <ul class="space-y-2">
+               <li>
+                 <a
+                   href="#"
+                   class="text-gray-400 hover:text-white transition-colors"
+                   >Home</a
+                 >
+               </li>
+               <li>
+                 <a
+                   href="#"
+                   class="text-gray-400 hover:text-white transition-colors"
+                   >Events</a
+                 >
+               </li>
+               <li>
+                 <a
+                   href="#"
+                   class="text-gray-400 hover:text-white transition-colors"
+                   >About Us</a
+                 >
+               </li>
+               <li>
+                 <a
+                   href="#"
+                   class="text-gray-400 hover:text-white transition-colors"
+                   >Contact</a
+                 >
+               </li>
+             </ul>
+           </div>
+ 
+
+           <div>
+             <h4 class="font-semibold mb-4">Contact</h4>
+             <ul class="space-y-2 text-gray-400">
+               <li class="flex items-center">
+                 <i class="ri-map-pin-line mr-2"></i>
+                 123 University Ave, Anytown, USA
+               </li>
+               <li class="flex items-center">
+                 <i class="ri-mail-line mr-2"></i>
+                 info@eventx.com
+               </li>
+               <li class="flex items-center">
+                 <i class="ri-phone-line mr-2"></i>
+                 (123) 456-7890
+               </li>
+             </ul>
+           </div>
+ 
+
+           <div>
+             <h4 class="font-semibold mb-4">Follow Us</h4>
+             <div class="flex space-x-4">
+               <a
+                 href="#"
+                 class="text-gray-400 hover:text-white transition-colors"
+               >
+                 <i class="ri-facebook-line text-xl"></i>
+               </a>
+               <a
+                 href="#"
+                 class="text-gray-400 hover:text-white transition-colors"
+               >
+                 <i class="ri-twitter-line text-xl"></i>
+               </a>
+               <a
+                 href="#"
+                 class="text-gray-400 hover:text-white transition-colors"
+               >
+                 <i class="ri-instagram-line text-xl"></i>
+               </a>
+             </div>
+           </div>
+         </div>
+ 
+
+         <div class="mt-12 text-center">
+           <p class="text-gray-400">
+             &copy; 2025 EventX. All rights reserved.
+           </p>
+         </div>
+       </div>
+     </footer>
+     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+     <script>
+       AOS.init({
+         duration: 800,
+         once: true,
+       });
+     </script>
+   </body>
+ </html>
